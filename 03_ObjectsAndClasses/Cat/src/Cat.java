@@ -5,6 +5,7 @@ public class Cat {
 
     private double minWeight;
     private double maxWeight;
+    private double countOfFood = 0.0;
 
     public Cat() {
         weight = 1500.0 + 3000.0 * Math.random();
@@ -18,13 +19,22 @@ public class Cat {
         weight = weight - 1;
         System.out.println("Meow");
     }
-
+    public void pee(){
+        weight = weight - 3.0;
+        System.out.println("Cat lost 3 g. of weight");
+    }
     public void feed(Double amount) {
         weight = weight + amount;
+        countOfFood = countOfFood + amount;
     }
 
     public void drink(Double amount) {
         weight = weight + amount;
+        countOfFood = countOfFood + amount;
+    }
+
+    public double getCountOfFood() {
+        return countOfFood;
     }
 
     public Double getWeight() {
