@@ -84,12 +84,48 @@ public class Cat {
         }
     }
 
-    //public double getCountOfFood() {
-    //    return countOfFood;
-    //}
+    public double getCountOfFood() {
+        return countOfFood;
+    }
 
     public Double getWeight() {
         return weight;
+    }
+
+    public double getOriginWeight() {
+        return originWeight;
+    }
+
+    public static int getEyesCount() {
+        return EYES_COUNT;
+    }
+
+    public static double getMinWeight() {
+        return MIN_WEIGHT;
+    }
+
+    public static double getMaxWeight() {
+        return MAX_WEIGHT;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setOriginWeight(double originWeight) {
+        this.originWeight = originWeight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setCountOfFood(double countOfFood) {
+        this.countOfFood = countOfFood;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     public String getStatus() {
