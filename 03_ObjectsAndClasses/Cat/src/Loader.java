@@ -4,8 +4,9 @@ public class Loader
     public static void main(String[] args)
     {
        Cat murzik = getKitten();
-       Cat barsik = getKitten();
-       Cat musya = getKitten();
+       murzik.setColor(CatsColor.RED);
+        System.out.println("Color is " + murzik.getColor());
+
 
 
 
