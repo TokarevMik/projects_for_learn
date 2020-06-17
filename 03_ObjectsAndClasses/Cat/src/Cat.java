@@ -17,6 +17,13 @@ public class Cat {
         alive = true;
 
     }
+    public Cat(double weight){
+        catCount++;
+        this.weight = weight;
+        originWeight = weight;
+        alive = true;
+
+    }
     public boolean isAlive(double weight){
         if(weight < MIN_WEIGHT|weight>MAX_WEIGHT){
             alive = false;
