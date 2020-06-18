@@ -5,7 +5,9 @@ public class Loader
     {
        Cat murzik = getKitten();
        murzik.setColor(CatsColor.RED);
-        System.out.println("Color is " + murzik.getColor());
+        System.out.println("Murzik is " + murzik.getColor());
+        Cat vaska = copyCat(murzik);
+        System.out.println("Vaska is " + vaska.getColor());
 
 
 
@@ -16,12 +18,7 @@ public class Loader
         return new Cat(1100.0);
     }
     private static Cat copyCat(Cat cat1){
-        Cat cat = new Cat();
-        cat.setColor(cat1.getColor());
-        cat.setWeight(cat1.getWeight());
-        cat.setOriginWeight(cat1.getOriginWeight());
-        cat.setAlive(cat1.isAlive());
-        cat.setCountOfFood(cat1.getCountOfFood());
+        Cat cat = new Cat(cat1);
         return cat;
     }
 }

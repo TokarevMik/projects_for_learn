@@ -35,10 +35,20 @@ public class Cat {
         alive = true;
 
     }
+    public Cat(Cat catOrig) {
+        this.color = catOrig.color;
+        this.weight = catOrig.weight;
+        this.originWeight = catOrig.originWeight;
+        this.alive = catOrig.alive;
+        this.countOfFood = catOrig.countOfFood;
+
+
+    }
 
     public boolean isAlive(double weight) {
         if (weight < MIN_WEIGHT | weight > MAX_WEIGHT) {
             alive = false;
+            catCount--;
         }
         return alive;
     }
@@ -130,10 +140,8 @@ public class Cat {
 
     public String getStatus() {
         if (weight < MIN_WEIGHT) {
-            catCount--;
             return "Dead";
         } else if (weight > MAX_WEIGHT) {
-            catCount--;
             return "Exploded";
         } else if (weight > originWeight) {
             return "Sleeping";
