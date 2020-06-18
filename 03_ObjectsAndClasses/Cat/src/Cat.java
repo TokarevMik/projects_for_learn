@@ -48,8 +48,7 @@ public class Cat {
     public boolean isAlive(double weight) {
         if (weight < MIN_WEIGHT | weight > MAX_WEIGHT) {
             alive = false;
-            catCount--;
-        }
+            }
         return alive;
     }
 
@@ -62,6 +61,9 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight - 1;
             System.out.println("Meow");
+            if (!isAlive(weight)) {
+                catCount--;
+            }
         } else {
             System.out.println("Can't meow. Cai is dead");
         }
@@ -71,6 +73,9 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight - 3.0;
             System.out.println("Cat lost 3 g. of weight");
+            if (!isAlive(weight)) {
+                catCount--;
+            }
         } else {
             System.out.println("Can't meow. Cat is dead");
         }
@@ -80,6 +85,9 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight + amount;
             countOfFood = countOfFood + amount;
+            if (!isAlive(weight)) {
+                catCount--;
+            }
         } else {
             System.out.println("Can't eat. Cat is dead");
         }
@@ -89,6 +97,9 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight + amount;
             countOfFood = countOfFood + amount;
+            if (!isAlive(weight)) {
+                catCount--;
+            }
         } else {
             System.out.println("Can't drink. Cat is dead");
         }
