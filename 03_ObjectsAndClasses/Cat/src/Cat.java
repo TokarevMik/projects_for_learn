@@ -61,7 +61,7 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight - 1;
             System.out.println("Meow");
-            if (!isAlive(weight)) {
+            if (isAlive(weight)) {
                 catCount--;
             }
         } else {
@@ -73,7 +73,7 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight - 3.0;
             System.out.println("Cat lost 3 g. of weight");
-            if (!isAlive(weight)) {
+            if (isAlive(weight)) {
                 catCount--;
             }
         } else {
@@ -85,7 +85,7 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight + amount;
             countOfFood = countOfFood + amount;
-            if (!isAlive(weight)) {
+            if (isAlive(weight)) {
                 catCount--;
             }
         } else {
@@ -97,7 +97,7 @@ public class Cat {
         if (isAlive(weight)) {
             weight = weight + amount;
             countOfFood = countOfFood + amount;
-            if (!isAlive(weight)) {
+            if (isAlive(weight)) {
                 catCount--;
             }
         } else {
