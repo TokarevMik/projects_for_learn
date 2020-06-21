@@ -19,8 +19,10 @@ public class Main
         int count  = num.length();
         for (int i = 0; i <count ; i++) {
             char a = num.charAt(i);
-            String b = String.valueOf(a);
-            sum += Integer.parseInt(b);
+           //String b = String.valueOf(a);
+            int f = Character.getNumericValue(a);
+            //sum += Integer.parseInt(b);
+            sum += f;
            }
         //@TODO: write code here
         return sum;
