@@ -5,7 +5,7 @@ public class Main
         Container container = new Container();
         container.count += 7843;
         Integer a = 12345;
-        Integer b = 10;
+        Integer b = 12;
         Integer c = 5059191;
         System.out.println(sumDigits(a));
         System.out.println(sumDigits(b));
