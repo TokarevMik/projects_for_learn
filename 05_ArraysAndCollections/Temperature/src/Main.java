@@ -11,7 +11,7 @@ public class Main {
         float [] temperature = new float[patients];
         System.out.print("Тeмпературы всех пациентов: ");
         for (int i = 0; i <patients ; i++) {
-            temperature[i] = MIN_TEMPERATURE + (float) (Math.random()*8);
+            temperature[i] = MIN_TEMPERATURE + (float) (Math.random()*(MAX_TEMPERATURE-MIN_TEMPERATURE));
             System.out.print(temperature[i] + " ");
             isHealth(temperature[i]);
             temperatureOfAll+=temperature[i];
