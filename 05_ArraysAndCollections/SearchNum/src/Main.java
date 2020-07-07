@@ -32,8 +32,8 @@ public class Main {
             long duration3 = System.nanoTime() - start3;
             System.out.println("Поиск перебором: " + (pos ? "номер найден" : "не найден") + ", поиск занял " + duration + "нс");
             System.out.println("Бинарный поиск: " + ((pos1 >= 0) ? "номер найден" : "не найден") + ", поиск занял " + duration1 + "нс");
-            System.out.println("Поиск в HashSet: " + (pos2 ? "номер найден" : "не найден") + ", поиск занял " + duration2 + "нс");
-            System.out.println("Поиск в TreeSet: " + (pos3 ? "номер найден" : "не найден") + ", поиск занял " + duration3 + "нс");
+            System.out.println("Поиск в TreeSet:" + (pos2 ? "номер найден" : "не найден") + ", поиск занял " + duration2 + "нс");
+            System.out.println("Поиск в HashSet: " + (pos3 ? "номер найден" : "не найден") + ", поиск занял " + duration3 + "нс");
             //System.out.println("пример - " + autoNumbers1.get((int)(Math.random()*2000000)));
 
         }
