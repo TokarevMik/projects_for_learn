@@ -1,5 +1,4 @@
 public class CardBankAccount extends BankAccount {
-    private double moneyCount = 120;
     private final double PERCENT_COMMISSION = 1.0;
 
     @Override
@@ -13,7 +12,7 @@ public class CardBankAccount extends BankAccount {
     }
 
     @Override
-    boolean send(BankAccount receiver, double amount) {
+    public boolean send(BankAccount receiver, double amount) {
         return super.send(receiver, amount);
     }
 

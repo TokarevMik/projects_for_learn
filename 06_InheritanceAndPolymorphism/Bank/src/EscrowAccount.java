@@ -1,9 +1,9 @@
 import java.util.Calendar;
 
 public class EscrowAccount extends BankAccount {
-    boolean isFirstMin = true;
-    Calendar allowedOfMinus;
-    Calendar toDay;
+    private boolean isFirstMin = true;
+    private Calendar allowedOfMinus;
+    private Calendar toDay;
     private final int WAITING_TIME = 1;
     @Override
     public double showMoneyCount() {
@@ -16,7 +16,7 @@ public class EscrowAccount extends BankAccount {
     }
 
     @Override
-    boolean send(BankAccount receiver, double amount) {
+    public boolean send(BankAccount receiver, double amount) {
         if (canMinus()) {
             super.send(receiver, amount);
             return true;

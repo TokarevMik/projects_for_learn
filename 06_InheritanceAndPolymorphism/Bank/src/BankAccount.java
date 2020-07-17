@@ -1,7 +1,7 @@
 public class BankAccount {
     private double moneyCount = 200;
 
-    boolean send(BankAccount receiver, double amount) {
+    public boolean send(BankAccount receiver, double amount) {
         this.minusMoneyCount(amount);
         receiver.plusMoneyCount(amount);
         return true;
