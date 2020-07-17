@@ -5,7 +5,6 @@ public class EscrowAccount extends BankAccount {
     Calendar allowedOfMinus;
     Calendar toDay;
     private final int WAITING_TIME = 1;
-
     @Override
     public double showMoneyCount() {
         return super.showMoneyCount();

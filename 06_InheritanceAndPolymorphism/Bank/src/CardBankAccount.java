@@ -10,7 +10,6 @@ public class CardBankAccount extends BankAccount {
     @Override
     public void plusMoneyCount(double money) {
         super.plusMoneyCount(money);
-
     }
 
     @Override
