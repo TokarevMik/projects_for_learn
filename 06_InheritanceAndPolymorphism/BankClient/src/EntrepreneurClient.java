@@ -1,16 +1,20 @@
 public class EntrepreneurClient extends Client {
-    private final double PERCENT_COMMISSION_1 = 0.99;
-    private final double PERCENT_COMMISSION_2 = 0.995;
+    private final double PERCENT_COMMISSION_1 = 1;
+    private final double PERCENT_COMMISSION_2 = 0.5;
 
     @Override
-    public void plusMoneyCount(double money) {
-        if (money < 1000) {
-            super.plusMoneyCount(money * PERCENT_COMMISSION_1);
-        } else {
-            super.plusMoneyCount(money * PERCENT_COMMISSION_2);
-        }
+    protected double getWithdrawalComission(double amount) {
+        return 0;
     }
 
+    @Override
+    protected double getDepositComission(double amount) {
+        if (amount < 1000) {
+           return (amount/100) * PERCENT_COMMISSION_1;
+        } else {
+           return (amount/100) * PERCENT_COMMISSION_2;
+        }
+    }
     @Override
     public void showTerms() {
         System.out.println("Пополнение с комиссией 1%, если сумма меньше 1000 рублей. И с комиссией 0,5%, " +
