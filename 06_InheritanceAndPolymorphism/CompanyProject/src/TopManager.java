@@ -2,41 +2,41 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class TopManager implements Employee {
-    private final double FIX_SALARY = 15000.0;
-    private Company placeOfWork;
+    private final int FIX_SALARY = 14000;
+    private Company company;
 
-    private double getPercent() {
-        if (placeOfWork.getIncome() > 10000000) {
-            return FIX_SALARY * 1.5;
+    private int getPercent() {       //Процент премии
+        if (company.getIncome() > 10000000) {
+            return ((FIX_SALARY/100) * 150);
         } else {
-            return 0.0;
+            return 0;
         }
     }
 
     public void hireToWork(Company c) {
-        placeOfWork = c;
+        company = c;
     }
 
     public void fire() {
-        placeOfWork = null;
+        company = null;
     }
 
     @Override
 
-    public double getMonthSalary() {
-        if (placeOfWork != null) {
-            if ((placeOfWork.workPlace()).contains(this)) {
+    public int getMonthSalary() {
+        if (company != null) {
+            if ((company.workPlace()).contains(this)) {
                 return FIX_SALARY + getPercent();
             } else {
-                return 0.0;
+                return 0;
             } //в данной компании нет такого сотрудника
         } else {
-            return 0.0; //Сотрудник уволен.
+            return 0; //Сотрудник уволен.
         }
     }
 
     @Override
-    public double income() {
+    public int income() {
         return 0;
     }
 }
