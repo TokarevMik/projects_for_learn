@@ -27,13 +27,13 @@ public class Company {
 
     public void hire(Employee e) {
         employeeList.add(e);
-        e.hireToWork(this);
+        e.setCompany(this);
     }
 
     public void hireAll(Collection<Employee> c) {
         employeeList.addAll(c);
         for (Employee e : employeeList) {
-            e.hireToWork(this);
+            e.setCompany(this);
         }
     }
 

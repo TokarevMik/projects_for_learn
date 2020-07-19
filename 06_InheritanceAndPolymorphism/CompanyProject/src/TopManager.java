@@ -13,7 +13,7 @@ public class TopManager implements Employee {
         }
     }
 
-    public void hireToWork(Company c) {
+    public void setCompany(Company c) {
         company = c;
     }
 

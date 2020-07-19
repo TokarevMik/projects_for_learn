@@ -3,7 +3,7 @@ public interface Employee {
 
     int income();
 
-    void hireToWork(Company c);
+    void setCompany(Company c);
 
     void fire();
 

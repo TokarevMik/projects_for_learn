@@ -3,7 +3,7 @@ public class Manager implements Employee {
     int income1 = income();
     private Company company;
     @Override
-    public void hireToWork(Company c) {
+    public void setCompany(Company c) {
         company = c;
     }
 

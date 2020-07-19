@@ -12,7 +12,7 @@ public class Operator implements Employee {
     }
 
     @Override
-    public void hireToWork(Company c) {
+    public void setCompany(Company c) {
         company = c;
     }
 
