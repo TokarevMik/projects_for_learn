@@ -1,6 +1,7 @@
 public class Operator implements Employee {
     private final int FIX_SALARY = 14000;
     private Company company;
+
     @Override
     public int getMonthSalary() {
         return FIX_SALARY;

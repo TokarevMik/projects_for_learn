@@ -4,10 +4,16 @@ import java.util.Collection;
 public class TopManager implements Employee {
     private final int FIX_SALARY = 14000;
     private Company company;
+    private final int FRONTIER_FOR_BONUS = 10_000_000;
+
+    @Override
+    public int income() {
+        return 0;
+    }
 
     private int getPercent() {       //Процент премии
-        if (company.getIncome() > 10000000) {
-            return ((FIX_SALARY/100) * 150);
+        if (company.getIncome() > FRONTIER_FOR_BONUS) {
+            return ((FIX_SALARY / 100) * 150);
         } else {
             return 0;
         }
@@ -33,10 +39,5 @@ public class TopManager implements Employee {
         } else {
             return 0; //Сотрудник уволен.
         }
-    }
-
-    @Override
-    public int income() {
-        return 0;
     }
 }

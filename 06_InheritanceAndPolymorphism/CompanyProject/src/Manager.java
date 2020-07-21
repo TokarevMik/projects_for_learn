@@ -1,6 +1,6 @@
 public class Manager implements Employee {
     private final int FIX_SALARY = 15000;
-    int income1 = income();
+    int income1 = income(); //прибыль для компании от данного менеджера
     private Company company;
     @Override
     public void setCompany(Company c) {
@@ -19,7 +19,6 @@ public class Manager implements Employee {
         return FIX_SALARY + (income1/100) * 5;
     }
 
-    @Override
     public int income() {
         return 115000 + (int) (Math.random() * 25000);
     }
