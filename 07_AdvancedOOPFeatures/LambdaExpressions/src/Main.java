@@ -13,8 +13,14 @@ public class Main
     public static void main(String[] args)
     {
         ArrayList<Employee> staff = loadStaffFromFile();
-
-
+        Collections.sort(staff, (o1,o2)-> {
+            int i= o1.getSalary().compareTo(o2.getSalary());
+            if(i==0){i=o1.getName().compareTo(o2.getName());}
+            return i;
+        });
+        for (Employee e:staff) {
+            System.out.println(e);
+        }
     }
 
     private static ArrayList<Employee> loadStaffFromFile()
