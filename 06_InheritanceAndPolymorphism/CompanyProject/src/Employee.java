@@ -1,7 +1,7 @@
 public interface Employee {
     int getMonthSalary();
 
-    int income();
+    int income(); //прибыль в компанию от содрунмка
 
     void setCompany(Company c);
 

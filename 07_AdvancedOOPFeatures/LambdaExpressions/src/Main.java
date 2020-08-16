@@ -5,45 +5,41 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class Main
-{
+public class Main {
     private static String staffFile = "data/staff.txt";
     private static String dateFormat = "dd.MM.yyyy";
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         ArrayList<Employee> staff = loadStaffFromFile();
-        Collections.sort(staff, (o1,o2)-> {
-            int i= o1.getSalary().compareTo(o2.getSalary());
-            if(i==0){i=o1.getName().compareTo(o2.getName());}
-            return i;
+        Collections.sort(staff, (o1, o2) -> {
+            int compareIndex = o1.getSalary().compareTo(o2.getSalary());
+            if (compareIndex == 0) {
+                compareIndex = o1.getName().compareTo(o2.getName());
+            }
+            return compareIndex;
         });
-        for (Employee e:staff) {
+        for (Employee e : staff) {
             System.out.println(e);
         }
     }
 
-    private static ArrayList<Employee> loadStaffFromFile()
-    {
+    private static ArrayList<Employee> loadStaffFromFile() {
         ArrayList<Employee> staff = new ArrayList<>();
-        try
-        {
+        try {
             List<String> lines = Files.readAllLines(Paths.get(staffFile));
-            for(String line : lines)
-            {
+            for (String line : lines) {
                 String[] fragments = line.split("\t");
-                if(fragments.length != 3) {
+                if (fragments.length != 3) {
                     System.out.println("Wrong line: " + line);
                     continue;
                 }
                 staff.add(new Employee(
-                    fragments[0],
-                    Integer.parseInt(fragments[1]),
-                    (new SimpleDateFormat(dateFormat)).parse(fragments[2])
+                        fragments[0],
+                        Integer.parseInt(fragments[1]),
+                        (new SimpleDateFormat(dateFormat)).parse(fragments[2])
                 ));
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return staff;
