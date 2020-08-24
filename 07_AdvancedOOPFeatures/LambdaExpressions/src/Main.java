@@ -11,16 +11,13 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList<Employee> staff = loadStaffFromFile();
-        Collections.sort(staff, (o1, o2) -> {
-            int compareIndex = o1.getSalary().compareTo(o2.getSalary());
-            if (compareIndex == 0) {
-                compareIndex = o1.getName().compareTo(o2.getName());
-            }
-            return compareIndex;
-        });
-        for (Employee e : staff) {
-            System.out.println(e);
-        }
+        //Date startDate = new Date(2016,11,31);
+        //Date stopDate = new Date(2018,0,1);
+        //.max(Comparator.comparing(Employee::getSalary))
+        staff.stream().filter(e->e.getWorkStart().getYear()+1900==2017)
+                .max(Comparator.comparing(Employee::getSalary))
+                .ifPresent(System.out::println);
+
     }
 
     private static ArrayList<Employee> loadStaffFromFile() {
