@@ -8,33 +8,14 @@ import java.util.List;
 
 public class RouteCalculatorTest extends TestCase {
 
+
     List<Station> route;
     StationIndex testIndex;
     Station from;
-    Station to;
+    Station toOneLine, toOneConn, toTwoConn;
 
     @Override
     public void setUp() throws Exception {
-        route = new ArrayList<>();
-        Line line1 = new Line(1, "Red");
-        Line line2 = new Line(2, "Green");
-        route.add(new Station("Горная", line1));
-        route.add(new Station("Лесная", line1));
-        route.add(new Station("Пушкинская", line2));
-        route.add(new Station("Гоголя", line2));
-
-    }
-
-    @Test
-    public void testCalculateDuration() {
-        double actual = RouteCalculator.calculateDuration(route);
-        double expected = 8.5;
-        assertEquals(expected, actual);
-    }
-
-
-    @Test
-    public void testGetShortestRoute() {
         testIndex = new StationIndex();
         Line line1 = new Line(1, "Red");
         Line line2 = new Line(2, "Green");
@@ -69,17 +50,37 @@ public class RouteCalculatorTest extends TestCase {
         testIndex.addConnection(connSt1);
         testIndex.addConnection(connSt2);
         from = st_0;
-        to = st_1;
+        toOneLine = st_1;
+        toOneConn = st_3;
+        toTwoConn = st_6;
+        route = new ArrayList<>();
+        route.add(st_0);
+        route.add(st_1);
+        route.add(st_2);
+        route.add(st_3);
+    }
+
+    @Test
+    public void testCalculateDuration() {
         RouteCalculator shortDir = new RouteCalculator(testIndex);
-        List<Station> actual = shortDir.getShortestRoute(from, to);
+        double actual = shortDir.calculateDuration(route);
+        double expected = 8.5;
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void testGetShortestRoute() {
+
+        RouteCalculator shortDir = new RouteCalculator(testIndex);
+        List<Station> actual = shortDir.getShortestRoute(from, toOneLine);
         List<Station> oneLineExp = new ArrayList<>(); //маршрут без пересадок
         oneLineExp.add(testIndex.getStation("Горная"));
         oneLineExp.add(testIndex.getStation("Лесная"));
         assertEquals(oneLineExp, actual);//проверка без пересадок
         //_______________________________________________________
-        from = st_0;
-        to = st_3;
-        actual = shortDir.getShortestRoute(from, to);
+
+        actual = shortDir.getShortestRoute(from, toOneConn);
         List<Station> oneConnExp = new ArrayList<>(); //маршрут с 1 пересадкой
         oneConnExp.add(testIndex.getStation("Горная"));
         oneConnExp.add(testIndex.getStation("Лесная"));
@@ -88,9 +89,7 @@ public class RouteCalculatorTest extends TestCase {
         assertEquals(oneConnExp, actual); //проверка с 1 пересадкой
         //_______________________________________________________
         List<Station> twoConnExp = new ArrayList<>(); //маршрут с 2 пересадками
-        from = st_0;
-        to = st_6;
-        actual = shortDir.getShortestRoute(from, to);
+        actual = shortDir.getShortestRoute(from, toTwoConn);
         twoConnExp.add(testIndex.getStation("Горная"));
         twoConnExp.add(testIndex.getStation("Лесная"));
         twoConnExp.add(testIndex.getStation("Пушкинская"));
