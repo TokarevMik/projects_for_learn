@@ -1,5 +1,9 @@
 import core.Line;
 import core.Station;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,10 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Main
 {
+    private static final Logger LOGGER = LogManager.getRootLogger();
     private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
+    private static final Marker STATION_MARKER = MarkerManager.getMarker("INPUT_STATION");
+    private static final Marker INVALID_STATIONS_MARKER = MarkerManager.getMarker("INVALID_STATIONS");
+    private static final Marker EXCEPTION_MARKER = MarkerManager.getMarker("EXCEPTION_ST");
 
     private static StationIndex stationIndex;
 
@@ -25,15 +34,21 @@ public class Main
         scanner = new Scanner(System.in);
         for(;;)
         {
+            try{
             Station from = takeStation("Введите станцию отправления:");
+            LOGGER.info(STATION_MARKER,"Станция отправления " + from);
             Station to = takeStation("Введите станцию назначения:");
+            LOGGER.info(STATION_MARKER,"Станция прибытия " + to);
 
             List<Station> route = calculator.getShortestRoute(from, to);
             System.out.println("Маршрут:");
             printRoute(route);
 
             System.out.println("Длительность: " +
-                RouteCalculator.calculateDuration(route) + " минут");
+                RouteCalculator.calculateDuration(route) + " минут");}
+            catch(Exception e){
+                LOGGER.error(EXCEPTION_MARKER, (Object) e);
+            }
         }
     }
 
@@ -73,6 +88,7 @@ public class Main
             if(station != null) {
                 return station;
             }
+            LOGGER.warn(INVALID_STATIONS_MARKER,"Станция не найдена " + line);
             System.out.println("Станция не найдена :(");
         }
     }
