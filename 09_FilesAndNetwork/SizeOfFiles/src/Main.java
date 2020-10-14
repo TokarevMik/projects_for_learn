@@ -3,11 +3,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Main {
-    public static final long GIGA_BYTES = 1024 * 1024 * 1024;
-
     public static void main(String[] args) {
         for (; ; ) {
             try {
@@ -21,7 +20,7 @@ public class Main {
                 } else {
                     System.out.println("Не верный адрес");
                 }
-                System.out.println("Размер папки " + path + " cоставляет " + String.format("%.3f", (sizeOfFiles)) + " гб");
+                System.out.println("Размер папки " + path + " cоставляет " + FileSizeFormat(sizeOfFiles));
 
             } catch (Exception ex) {
                 System.out.println(ex.fillInStackTrace());
@@ -35,8 +34,16 @@ public class Main {
                 .filter(file -> file.isFile())
                 .mapToLong(File::length)
                 .sum();
-        size = size / GIGA_BYTES;
         return size;
+    }
+    public static String FileSizeFormat(long size) {
+        if (size <= 0) {
+            return "0";
+        }
+        final String[] units = new String[] {"Б", "КБ", "МБ", "ГБ", "ТБ"};
+        int digitGroups = (int)(Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.##").format(size / Math.pow(1024, digitGroups))
+                + " " + units[digitGroups];
     }
 
 }
