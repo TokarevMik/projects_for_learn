@@ -34,14 +34,13 @@ public class Main {
             }
         }
          }
-
     private static void copyFolder (String sourceFile, String destFile) {
         File src = new File(sourceFile);
         for (File file : src.listFiles()) {
             String sourceFilePath = sourceFile + "/" + file.getName();
             String destFilePath = destFile + "/" + file.getName();
             if (file.isDirectory()) {
-                new File(sourceFilePath).mkdir();
+                new File(destFilePath).mkdir();
                 copyFolder(sourceFilePath, destFilePath);
             } else {
                 try {
