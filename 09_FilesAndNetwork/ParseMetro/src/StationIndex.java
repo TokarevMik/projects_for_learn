@@ -3,7 +3,7 @@ import java.util.stream.Collectors;
 
 public class StationIndex
 {
-    HashMap<Integer, Line> number2line;
+    HashMap<String, Line> number2line;
     TreeSet<Station> stations;
     //TreeMap<Station, TreeSet<Station>> connections;
     Set<HashMap<String,String>> connections;

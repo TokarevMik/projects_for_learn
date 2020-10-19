@@ -3,18 +3,19 @@ import java.util.List;
 
 public class Line implements Comparable<Line>
 {
-    private int number;
+    //private int number;
+    private String number;
     private String name;
-    private List<Station> stations;
+    //private List<Station> stations;
 
-    public Line(int number, String name)
+    public Line(String number, String name)
     {
         this.number = number;
         this.name = name;
-        stations = new ArrayList<>();
+        //stations = new ArrayList<>();
     }
 
-    public int getNumber()
+    public String getNumber()
     {
         return number;
     }
@@ -24,20 +25,21 @@ public class Line implements Comparable<Line>
         return name;
     }
 
-    public void addStation(Station station)
-    {
-        stations.add(station);
-    }
-
-    public List<Station> getStations()
-    {
-        return stations;
-    }
+//    public void addStation(Station station)
+//    {
+//        stations.add(station);
+//    }
+//
+//    public List<Station> getStations()
+//    {
+//        return stations;
+//    }
 
     @Override
     public int compareTo(Line line)
     {
-        return Integer.compare(number, line.getNumber());
+        //return Integer.compare(number, line.getNumber());
+        return this.compareTo(line);
     }
 
     @Override
@@ -51,7 +53,6 @@ public class Line implements Comparable<Line>
         return "Line{" +
                 "number=" + number +
                 ", name='" + name + '\'' +
-                ", stations=" + stations +
-                '}';
+                               '}';
     }
 }
