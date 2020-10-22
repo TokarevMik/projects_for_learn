@@ -1,18 +1,21 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+    private static String dataFile = "res/map2.json";
+
     public static void main(String[] args) {
         String url = "https://www.moscowmap.ru/metro.html#lines";
         try {
@@ -21,39 +24,54 @@ public class Main {
 //            Document doc = Jsoup.parse(input, "UTF-8", "https://www.moscowmap.ru/metro.html#lines");
             Document doc = Jsoup.connect(url).timeout(0).maxBodySize(0).get();
             Element tab = doc.select("div[id = metrodata]").first();
-//            Elements lines = tab.getElementsByClass("s-depend-control-single");//названия линий
             Elements stationLists = tab.getElementsByAttributeValueMatching("data-line", "\\w*\\d+");
             LinkedHashMap<String, ArrayList<String>> stations;
             LinkedList<LinkedHashSet<Station>> connections;
-            //stations = AllStations(stationLists);               //нумерованные списки станций
-            //arrayLines = AllLines(stationLists); // список линий
+            stations = AllStations(stationLists);               //нумерованные списки станций
+            arrayLines = AllLines(stationLists);                // список линий
             connections = AllConnections(stationLists);
-            System.out.println("5555555556666666");
-            for (HashSet<Station> s : connections) {
-                System.out.println("++++");
-                s.forEach(e -> System.out.println("Линия " + e.getLine() + " " + e.getName()));
+
+            JSONObject object = new JSONObject();//итоговый файл
+            JSONObject stationJO = new JSONObject();
+            JSONArray linesJA = new JSONArray();
+            stations.forEach(stationJO::put);
+            object.put("stations", stationJO);          //stations в JSON
+            for (Line l : arrayLines) {
+                JSONObject line = new JSONObject();
+                line.put("number", l.getNumber());
+                line.put("name", l.getName());
+                linesJA.add(line);
             }
-            System.out.println("5555555556666666");
+            object.put("lines", linesJA);           //lines в JSON
+            JSONArray allConnectionsJ = new JSONArray();
+            for (LinkedHashSet<Station> sta : connections) {
+                JSONArray connectionJ = new JSONArray();
+                for (Station s : sta) {
+                    JSONObject conJo = new JSONObject();
+                    conJo.put("line", s.getLine());
+                    conJo.put("station", s.getName());
+                    connectionJ.add(conJo);
+                }
+                allConnectionsJ.add(connectionJ);
+            }
+            object.put("connections", allConnectionsJ);  //connections to JSON
+            FileWriter file = new FileWriter(dataFile);
+            file.write(object.toJSONString());
+            file.flush();
+            file.close();
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(getJsonFile());
+            JSONObject jsonStations = (JSONObject) jsonObject.get("stations");
+            jsonStations.keySet().forEach(lineNumberObject ->
+            {
+                String lineNumber = ((String) lineNumberObject);
+                JSONArray stationsArray = (JSONArray) jsonStations.get(lineNumberObject);
+                int stationCount = stationsArray.size();
+                System.out.println("На линии " + lineNumber + "  - " + stationCount + " станций");
+            });
 
-//            JSONObject object = new JSONObject();//итоговый файл
-//            JSONObject stationJO = new JSONObject();
-//            JSONArray linesJA = new JSONArray();
-//            stations.forEach((k, v) -> stationJO.put(k, v));
-//            object.put("stations", stationJO);          //stations в JSON
-//            for (Line l : arrayLines) {
-//                JSONObject line = new JSONObject();
-//                line.put("number", l.getNumber());
-//                line.put("name", l.getName());
-//                linesJA.add(line);
-//            }
 
-            //object.put("lines", linesJA);           //lines в JSON
-
-//            FileWriter file = new FileWriter("res/map2.json");
-//            file.write(object.toJSONString());
-//            file.flush();
-//            file.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -73,7 +91,7 @@ public class Main {
                 Elements stations3 = c.getElementsByClass("t-icon-metroln");
                 if (stations3.hasClass("t-icon-metroln")) {
                     String stFrom1 = c.text();
-                    String stFrom = (stFrom1.split("\\s", 2))[1];                           //Станция с которой
+                    String stFrom = (stFrom1.split("\\s", 2))[1];
                     if (Cheker(connection, stFrom, num)) {
                         conn.add(new Station(stFrom, num));
                     } else {
@@ -123,7 +141,7 @@ public class Main {
     }
 
     private static LinkedHashMap<String, ArrayList<String>> AllStations(Elements stationLists) {
-        LinkedHashMap<String, ArrayList<String>> f = new LinkedHashMap<>();
+        LinkedHashMap<String, ArrayList<String>> allStations = new LinkedHashMap<>();
         String numOfLine = null;
         ArrayList<String> st = null;
         for (Element e : stationLists) {
@@ -132,13 +150,24 @@ public class Main {
                 for (Element s : stations) {
                     String nameOfStation = s.text().substring(3);
                     st.add(nameOfStation);
-                    f.put(numOfLine, st);
+                    allStations.put(numOfLine, st);
                 }
             } else {
                 numOfLine = e.attr("data-line"); //номер линии
                 st = new ArrayList<>();
             }
         }
-        return f;
+        return allStations;
+    }
+
+    private static String getJsonFile() {
+        StringBuilder builder = new StringBuilder();
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(dataFile));
+            lines.forEach(line -> builder.append(line));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return builder.toString();
     }
 }

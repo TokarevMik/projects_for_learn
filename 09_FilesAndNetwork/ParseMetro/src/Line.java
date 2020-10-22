@@ -1,50 +1,31 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Line implements Comparable<Line>
-{
-    //private int number;
+public class Line implements Comparable<Line> {
     private String number;
     private String name;
-    //private List<Station> stations;
 
-    public Line(String number, String name)
-    {
+    public Line(String number, String name) {
         this.number = number;
         this.name = name;
-        //stations = new ArrayList<>();
     }
 
-    public String getNumber()
-    {
+    public String getNumber() {
         return number;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-//    public void addStation(Station station)
-//    {
-//        stations.add(station);
-//    }
-//
-//    public List<Station> getStations()
-//    {
-//        return stations;
-//    }
 
     @Override
-    public int compareTo(Line line)
-    {
-        //return Integer.compare(number, line.getNumber());
+    public int compareTo(Line line) {
         return this.compareTo(line);
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         return compareTo((Line) obj) == 0;
     }
 
@@ -53,6 +34,6 @@ public class Line implements Comparable<Line>
         return "Line{" +
                 "number=" + number +
                 ", name='" + name + '\'' +
-                               '}';
+                '}';
     }
 }
