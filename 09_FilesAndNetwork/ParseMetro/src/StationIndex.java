@@ -15,7 +15,7 @@ public class StationIndex
         connections = new TreeSet<>();
     }
 
-    public void addStation(Station station)
+    /*public void addStation(Station station)
     {
         stations.add(station);
     }
@@ -37,30 +37,30 @@ public class StationIndex
 //            connectedStations.addAll(stations.stream()
 //                    .filter(s -> !s.equals(station)).collect(Collectors.toList()));
 //        }
-    }
+    }*/
 
-    public Line getLine(int number)
-    {
-        return number2line.get(number);
-    }
-
-    public Station getStation(String name)
-    {
-        for(Station station : stations)
-        {
-            if(station.getName().equalsIgnoreCase(name)) {
-                return station;
-            }
-        }
-        return null;
-    }
-
-    public Station getStation(String name, int lineNumber)
-    {
-        Station query = new Station(name, getLine(lineNumber));
-        Station station = stations.ceiling(query);
-        return station.equals(query) ? station : null;
-    }
+//    public Line getLine(int number)
+//    {
+//        return number2line.get(number);
+//    }
+//
+//    public Station getStation(String name)
+//    {
+//        for(Station station : stations)
+//        {
+//            if(station.getName().equalsIgnoreCase(name)) {
+//                return station;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public Station getStation(String name, String lineNumber)
+//    {
+//        Station query = new Station(name, getLine(lineNumber));
+//        Station station = stations.ceiling(query);
+//        return station.equals(query) ? station : null;
+//    }
 
   /*  public Set<Station> getConnectedStations(Station station)
     {

@@ -1,15 +1,15 @@
 public class Station implements Comparable<Station>
 {
-    private Line line;
+    private String line;
     private String name;
 
-    public Station(String name, Line line)
+    public Station(String name, String line)
     {
         this.name = name;
         this.line = line;
     }
 
-    public Line getLine()
+    public String getLine()
     {
         return line;
     }
@@ -29,11 +29,11 @@ public class Station implements Comparable<Station>
         return name.compareToIgnoreCase(station.getName());
     }
 
-//    @Override
-//    public boolean equals(Object obj)
-//    {
-//        return compareTo((Station) obj) == 0;
-//    }
+    @Override
+    public boolean equals(Object obj)
+    {
+        return compareTo((Station) obj) == 0;
+    }
 
     @Override
     public String toString()
