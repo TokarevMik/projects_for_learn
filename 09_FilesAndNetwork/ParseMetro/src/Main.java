@@ -19,17 +19,17 @@ public class Main {
     public static void main(String[] args) {
         String url = "https://www.moscowmap.ru/metro.html#lines";
         try {
-            ArrayList<Line> arrayLines;
+            List<Line> arrayLines;
 //            File input = new File("res/Карта метро Москвы со станциями МЦК и МЦД 2020.html");
 //            Document doc = Jsoup.parse(input, "UTF-8", "https://www.moscowmap.ru/metro.html#lines");
             Document doc = Jsoup.connect(url).timeout(0).maxBodySize(0).get();
             Element tab = doc.select("div[id = metrodata]").first();
             Elements stationLists = tab.getElementsByAttributeValueMatching("data-line", "\\w*\\d+");
-            LinkedHashMap<String, ArrayList<String>> stations;
-            LinkedList<LinkedHashSet<Station>> connections;
-            stations = AllStations(stationLists);               //нумерованные списки станций
-            arrayLines = AllLines(stationLists);                // список линий
-            connections = AllConnections(stationLists);
+            Map<String, List<String>> stations;
+            List<Set<Station>> connections;
+            stations = allStations(stationLists);               //нумерованные списки станций
+            arrayLines = allLines(stationLists);                // список линий
+            connections = allConnections(stationLists);
 
             JSONObject object = new JSONObject();//итоговый файл
             JSONObject stationJO = new JSONObject();
@@ -44,7 +44,7 @@ public class Main {
             }
             object.put("lines", linesJA);           //lines в JSON
             JSONArray allConnectionsJ = new JSONArray();
-            for (LinkedHashSet<Station> sta : connections) {
+            for (Set<Station> sta : connections) {
                 JSONArray connectionJ = new JSONArray();
                 for (Station s : sta) {
                     JSONObject conJo = new JSONObject();
@@ -76,23 +76,23 @@ public class Main {
         }
     }
 
-    private static LinkedList<LinkedHashSet<Station>> AllConnections(Elements stationLists) {
+    private static List<Set<Station>> allConnections(Elements stationLists) {
         Pattern patternSt = Pattern.compile("\\«.+\\»");
         Pattern patternLn = Pattern.compile("\\w*\\d+");
         String num = null;
-        LinkedList<LinkedHashSet<Station>> connection = new LinkedList<>();
+        List<Set<Station>> connection = new LinkedList<>();
         for (Element e : stationLists) {
             if (e.hasClass("js-metro-line")) {
                 num = e.attr("data-line");
             }
             Elements stations2 = e.getElementsByTag("p");
             for (Element c : stations2) {
-                LinkedHashSet<Station> conn = new LinkedHashSet<>();
+                Set<Station> conn = new LinkedHashSet<>();
                 Elements stations3 = c.getElementsByClass("t-icon-metroln");
                 if (stations3.hasClass("t-icon-metroln")) {
                     String stFrom1 = c.text();
                     String stFrom = (stFrom1.split("\\s", 2))[1];
-                    if (Cheker(connection, stFrom, num)) {
+                    if (cheker(connection, stFrom, num)) {
                         conn.add(new Station(stFrom, num));
                     } else {
                         break;
@@ -105,7 +105,7 @@ public class Main {
                         int endIndex = nameOfStFrom.length() - 1;
                         nameOfStFrom = nameOfStFrom.substring(1, endIndex);
                         String numLine = m1.group();
-                        boolean chek = Cheker(connection, nameOfStFrom, numLine);
+                        boolean chek = cheker(connection, nameOfStFrom, numLine);
                         if (chek) {
                             conn.add(new Station(nameOfStFrom, numLine));
                         }
@@ -117,8 +117,8 @@ public class Main {
         return connection;
     }
 
-    private static boolean Cheker(LinkedList<LinkedHashSet<Station>> connection, String nameOfStFrom, String numLine) {
-        for (HashSet<Station> h : connection) {
+    private static boolean cheker(List<Set<Station>> connection, String nameOfStFrom, String numLine) {
+        for (Set<Station> h : connection) {
             for (Station s : h) {
                 if (s.getName().equals(nameOfStFrom) & s.getLine().equals(numLine)) {
                     return false;
@@ -128,8 +128,8 @@ public class Main {
         return true;
     }
 
-    private static ArrayList<Line> AllLines(Elements stationLists) {
-        ArrayList<Line> allLines = new ArrayList<>();
+    private static List<Line> allLines(Elements stationLists) {
+        List<Line> allLines = new ArrayList<>();
         for (Element e : stationLists) {
             if (e.hasClass("js-metro-line")) {
                 String num = e.attr("data-line");
@@ -140,10 +140,10 @@ public class Main {
         return allLines;
     }
 
-    private static LinkedHashMap<String, ArrayList<String>> AllStations(Elements stationLists) {
-        LinkedHashMap<String, ArrayList<String>> allStations = new LinkedHashMap<>();
+    private static Map<String, List<String>> allStations(Elements stationLists) {
+        Map<String, List<String>> allStations = new LinkedHashMap<>();
         String numOfLine = null;
-        ArrayList<String> st = null;
+        List<String> st = null;
         for (Element e : stationLists) {
             if (e.hasClass("js-metro-stations")) {
                 Elements stations = e.getElementsByTag("p");
