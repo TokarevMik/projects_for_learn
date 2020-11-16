@@ -2,12 +2,12 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) {
-        String url ="jdbc:mysql://localhost:3306/skillbox";
+        String url ="jdbc:mysql://localhost:3306/skillbox?useSSL=false&serverTimezone=UTC";
         String user = "root";
         String pass = "cuafbu5k3a";
         try {
             Connection connection = DriverManager.getConnection(url,user,pass);
-            Statement statement = connection.createStatement();
+            Statement statement = connection.createStatement(); 
             ResultSet rs = statement.executeQuery("SELECT DISTINCT Courses.name, ((MONTH(x.maxdate) - MONTH(y.mindate))/count_purch) as start FROM Subscriptions, " +
                     "Courses, (SELECT MAX(subscription_date) AS maxdate, " +
                     "course_id AS id_stop FROM Subscriptions GROUP BY course_id) x, (SELECT MIN(subscription_date) AS mindate, " +
