@@ -1,9 +1,7 @@
 import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Students")
@@ -16,15 +14,20 @@ public class Student {
     @Column(name = "registration_date")
     private Date registrationDate;
 
+    @OneToMany(mappedBy = "student")
+    private Set<Subscriptions> subscriptions;
+
     public int getId() {
         return id;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "subscriptions",
-            joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "student_id")})
-    private List<Subscriptions> listOfsubsc = new ArrayList<>();
+    public Set<Subscriptions> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(Set<Subscriptions> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -54,11 +57,4 @@ public class Student {
         this.registrationDate = registrationDate;
     }
 
-    public List<Subscriptions> getListOfsubsc() {
-        return listOfsubsc;
-    }
-
-    public void setListOfsubsc(List<Subscriptions> listOfsubsc) {
-        this.listOfsubsc = listOfsubsc;
-    }
 }

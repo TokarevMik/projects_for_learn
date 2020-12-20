@@ -1,5 +1,6 @@
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -27,11 +28,23 @@ public class Course {
 
     @Column(name = "price_per_hour")
     private float pricePerHour;
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "course")
+    private Set<Subscriptions> subscriptions;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "subscriptions",
             joinColumns = {@JoinColumn(name = "course_id")},
             inverseJoinColumns = {@JoinColumn(name = "student_id")})
     private List<Student> students;
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
     public int getId() {
         return id;
@@ -106,11 +119,12 @@ public class Course {
         this.pricePerHour = pricePerHour;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public Set<Subscriptions> getSubscriptions() {
+        return subscriptions;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setSubscriptions(Set<Subscriptions> subscriptions) {
+        this.subscriptions = subscriptions;
     }
+
 }
