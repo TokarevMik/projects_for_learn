@@ -14,6 +14,8 @@ public class Student {
     @Column(name = "registration_date")
     private Date registrationDate;
 
+
+
     @OneToMany(mappedBy = "student")
     private Set<Subscriptions> subscriptions;
 
