@@ -25,9 +25,8 @@ public class Main {
             for (Object[] objects : departments) {
                 Integer studentId = (Integer) objects[0];
                 Integer coursesId = (Integer) objects[1];
-                LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
-                linkedPurchaseList.setId(new LinkedPurKey(studentId, coursesId));
-                session.save(linkedPurchaseList);
+                LinkedPurchase linkedPurchase = new LinkedPurchase(studentId,coursesId);
+                session.save(linkedPurchase);
             }
 
             transaction.commit();
