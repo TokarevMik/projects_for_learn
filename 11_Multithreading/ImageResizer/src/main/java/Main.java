@@ -6,6 +6,7 @@ public class Main {
     private static int newWdth = 300;
 
     public static void main(String[] args) {
+
         String srcFolder = "/users/sortedmap/Desktop/src";
         String dstFolder = "/users/sortedmap/Desktop/dst";
 
