@@ -10,9 +10,11 @@ public class Bank {
     public HashMap<String, Account> getAccounts() {
         return accounts;
     }//удалить
+
     public void setAccounts(HashMap<String, Account> accounts) {
         this.accounts = accounts;
     }
+
     public synchronized boolean isFraud(String fromAccountNum, String toAccountNum, long amount)
             throws InterruptedException {
         Thread.sleep(1000);
@@ -33,16 +35,17 @@ public class Bank {
 
         } else {
             Account fromAccount = accounts.get(fromAccountNum);
-            Long fromMon = fromAccount.getMoney() - amount;
-            fromAccount.setMoney(fromMon);
             Account toAccount = accounts.get(toAccountNum);
-            Long toMon = toAccount.getMoney() + amount;
-            toAccount.setMoney(toMon);
-            synchronized (accounts) {
-                accounts.put(fromAccountNum, fromAccount);
-                accounts.put(toAccountNum, toAccount);
+            synchronized (fromAccount.compareTo(toAccount) > 0 ? fromAccount : toAccount) {
+                synchronized (fromAccount.compareTo(toAccount) > 0 ? toAccount : fromAccount) {
+                    if (fromAccount.getMoney() < amount) {
+                        return;
+                    } else {
+                        fromAccount.takeMoney(amount);
+                        toAccount.putMoney(amount);
+                    }
+                }
             }
-            System.out.println();
         }
     }
 
@@ -50,7 +53,7 @@ public class Bank {
      * TODO: реализовать метод. Возвращает остаток на счёте.
      */
     public long getBalance(String accountNum) {
-        synchronized (accountNum) {
+        synchronized (accounts.get(accountNum)) {
             return accounts.get(accountNum).getMoney();
         }
 

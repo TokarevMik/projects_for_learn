@@ -1,4 +1,4 @@
-public class Account {
+public class Account implements Comparable<Account> {
 
     public Account(String accNumber, long money) {
         this.accNumber = accNumber;
@@ -10,27 +10,19 @@ public class Account {
     private boolean isFrauded = false;
 
     public boolean getIsFraued() {
-        synchronized (this) {
-            return isFrauded;
-        }
+        return isFrauded;
     }
 
     public void setIsFrauded() {
-        synchronized (this) {
-            isFrauded = true;
-        }
+        isFrauded = true;
     }
 
     public long getMoney() {
-        synchronized (this) {
-            return money;
-        }
+        return money;
     }
 
     public void setMoney(long money) {
-        synchronized (this) {
-            this.money = money;
-        }
+        this.money = money;
     }
 
     public String getAccNumber() {
@@ -41,4 +33,16 @@ public class Account {
         this.accNumber = accNumber;
     }
 
+    public void putMoney(long debit) {
+        money += debit;
+    }
+
+    public void takeMoney(long credit) {
+        money -= credit;
+    }
+
+    @Override
+    public int compareTo(Account a) {
+        return this.getAccNumber().compareTo(a.getAccNumber());
+    }
 }
