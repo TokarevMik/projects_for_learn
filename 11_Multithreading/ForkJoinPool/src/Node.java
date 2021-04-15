@@ -5,6 +5,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.regex.Matcher;
@@ -47,18 +48,15 @@ public class Node {
                 Matcher matcher = pattern.matcher(linkHref);
                 Matcher matcher2 = pattern2.matcher(linkHref);
                 if (matcher.matches()) {
-                    linkHref = getChildAdress(url,linkHref);
-                    nodes.add(new Node(linkHref, takePageLevel(linkHref)));
+                    int levelOfChilde = takePageLevel(linkHref) - takePageLevel(url);
+                    if (levelOfChilde == 1) {
+                        nodes.add(new Node(linkHref, takePageLevel(linkHref)));
+                    }
 
                 }
                 if (matcher2.matches()) {
                     linkHref = domain.concat(linkHref);
-                    try {
-                        nodes.add(new Node(linkHref, takePageLevel(linkHref)));
-                    } catch (IndexOutOfBoundsException e) {
-                        e.printStackTrace();
-                        System.out.println(linkHref + " ********");
-                    }
+                    nodes.add(new Node(linkHref, takePageLevel(linkHref)));
                 }
             }
         } catch (
@@ -66,23 +64,6 @@ public class Node {
             e.printStackTrace();
         }
         return nodes;
-    }
-
-    private String getChildAdress(String parent, String child) throws IOException {
-//        int countCharParent = 0;
-        int positionnChild = 0;
-        String bufferUrl = null;
-        for (int i = parent.length(); i < child.length(); i++) {
-            if (child.charAt(i) == '/') {
-                positionnChild = i;
-                bufferUrl = parent.concat(child.substring(parent.length(), positionnChild + 1));
-                if(isUrlWorking(bufferUrl))
-                    break;
-            }
-        }
-//        child = parent.concat(child.substring(parent.length(), positionnChild + 1));
-
-        return bufferUrl;
     }
 
     private int takePageLevel(String adress) {
@@ -95,18 +76,21 @@ public class Node {
             case 5 -> 2;
             case 6 -> 3;
             case 7 -> 4;
-            case 8 -> 5;
             default -> 0;
         };
         return resulte;
     }
-    private boolean isUrlWorking(String url) throws IOException {
-        Connection.Response response = Jsoup.connect(url)
-                .userAgent("Mozilla")
-                .timeout(0).ignoreHttpErrors(true)
-                .execute();
-        if (response.statusCode()==200) {return true;}
-        else{return false;}
-    }
+
+//    private boolean isUrlWorking(String url) throws IOException {
+//        Connection.Response response = Jsoup.connect(url)
+//                .userAgent("Mozilla")
+//                .timeout(10000).ignoreHttpErrors(true)
+//                .execute();
+//        if (response.statusCode() == 200) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
 }

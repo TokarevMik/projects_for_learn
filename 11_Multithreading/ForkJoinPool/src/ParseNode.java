@@ -1,28 +1,29 @@
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.RecursiveTask;
 
-public class ParseNode extends RecursiveTask<List<String>> {
+public class ParseNode extends RecursiveTask<Set<String>> {
     private Node node;
 
     public ParseNode(Node note) {
         this.node = note;
     }
-    public static Set<String> isAlreadyRead = new HashSet<>();
-    public List<String> compute() {
-        List<String> linksNames = new ArrayList<>();
-        String adress = node.getUrl();
-        if (node.levelOfPage>0){
-            for (int i = 0;i<= node.getLevelOfPage();i++){
-                adress = "   ".concat(adress);
+
+    public static Set<String> isAlreadyRead = new CopyOnWriteArraySet<>();
+
+    public Set<String> compute() {
+        Set<String> linksNames = new CopyOnWriteArraySet<>();
+        String address = node.getUrl();
+        if (node.levelOfPage > 0) {
+            for (int i = 0; i <= node.getLevelOfPage(); i++) {
+                address = "   ".concat(address);
             }
         }
-        linksNames.add(adress);
-        List<ParseNode> taskList = new ArrayList<>();
+        linksNames.add(address);
+        Set<ParseNode> taskList = new CopyOnWriteArraySet<>();
         for (Node child : node.getChildren()) {
-            if (!isAlreadyRead.contains(child.getUrl())){
+            if (!isAlreadyRead.contains(child.getUrl())) {
                 isAlreadyRead.add(child.getUrl());
                 ParseNode task = new ParseNode(child);
                 task.fork();
@@ -39,6 +40,5 @@ public class ParseNode extends RecursiveTask<List<String>> {
         }
         return linksNames;
     }
-
 
 }
