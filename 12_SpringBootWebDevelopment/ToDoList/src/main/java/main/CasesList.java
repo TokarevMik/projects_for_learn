@@ -9,10 +9,8 @@ public class CasesList {
     private static int currentId = 1;
     static private Map<Integer, Case> toDoList = new HashMap<Integer, Case>();
 
-    static public synchronized void toDoListUpdater(int id, String name) {
-        Case c = new Case();
+    static public synchronized void toDoListUpdater(int id, Case c) {
         c.setId(id);
-        c.setName(name);
         toDoList.put(id, c);
     }
 

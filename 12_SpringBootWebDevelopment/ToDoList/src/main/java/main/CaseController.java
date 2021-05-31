@@ -24,9 +24,7 @@ public class CaseController {
     }
 
     @PostMapping
-    public int postNewCase(@RequestParam String name) {
-        Case c = new Case();
-        c.setName(name);
+    public int postNewCase(@RequestParam Case c) {
         return CasesList.addCase(c);
     }
 
@@ -36,9 +34,9 @@ public class CaseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity putOneCase(@PathVariable int id, @RequestParam String name) {
+    public ResponseEntity putOneCase(@PathVariable int id, @RequestParam Case c) {
         if (CasesList.containCase(id)) {
-            CasesList.toDoListUpdater(id, name);
+            CasesList.toDoListUpdater(id, c);
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
