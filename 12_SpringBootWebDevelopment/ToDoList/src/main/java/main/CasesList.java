@@ -20,7 +20,7 @@ public class CasesList {
         } else return false;
     }
 
-    static public synchronized int addCase(Case c) {
+    static public synchronized int adCase(Case c) {
         int id = currentId++;
         c.setId(id);
         toDoList.put(id, c);

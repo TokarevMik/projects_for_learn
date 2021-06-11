@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/cases")
 public class CaseController {
-    @GetMapping
+    @GetMapping("/cases")
     public List<Case> toDoList() {
         return CasesList.getToDoList();
     }
@@ -24,8 +24,8 @@ public class CaseController {
     }
 
     @PostMapping
-    public int postNewCase(@RequestParam Case c) {
-        return CasesList.addCase(c);
+    public int postNewCase(@RequestBody Case c) {
+        return CasesList.adCase(c);
     }
 
     @PostMapping("/{id}")
@@ -34,7 +34,7 @@ public class CaseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity putOneCase(@PathVariable int id, @RequestParam Case c) {
+    public ResponseEntity putOneCase( @RequestBody int id, Case c) {
         if (CasesList.containCase(id)) {
             CasesList.toDoListUpdater(id, c);
             return ResponseEntity.status(HttpStatus.OK).body(null);
@@ -44,7 +44,7 @@ public class CaseController {
     @PutMapping
     public List<Case> allCasesUpdater(@RequestParam List<Case> casesArrey) {
         CasesList.removeAllCases();
-        casesArrey.stream().forEach(CasesList::addCase);
+        casesArrey.stream().forEach(CasesList::adCase);
         return CasesList.getToDoList();
     }
 
