@@ -9,14 +9,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/cases")
 public class CaseController {
-    @GetMapping("/cases")
+    @GetMapping
     public List<Case> toDoList() {
         return CasesList.getToDoList();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getCaseFromList(@PathVariable int id) {
-        Case currentCase = CasesList.getToDoList().get(id);
+        Case currentCase = CasesList.getCase(id);
         if (currentCase == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -34,7 +34,7 @@ public class CaseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity putOneCase( @RequestBody int id, Case c) {
+    public ResponseEntity putOneCase(@PathVariable int id,@RequestBody Case c) {
         if (CasesList.containCase(id)) {
             CasesList.toDoListUpdater(id, c);
             return ResponseEntity.status(HttpStatus.OK).body(null);

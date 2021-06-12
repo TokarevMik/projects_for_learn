@@ -26,6 +26,15 @@ public class CasesList {
         toDoList.put(id, c);
         return id;
     }
+    static public Case getCase(int id) {
+        Case c;
+        if (toDoList.containsKey(id)) {
+            c = toDoList.get(id);
+        } else {
+            c = null;
+        }
+        return c;
+    }
 
     static public synchronized List<Case> getToDoList() {
         List<Case> allCases = new ArrayList<>();
