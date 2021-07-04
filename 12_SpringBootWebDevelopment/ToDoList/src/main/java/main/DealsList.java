@@ -1,33 +1,36 @@
 package main;
 
+import main.model.Deal;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CasesList {
+public class DealsList {
     private static int currentId = 1;
-    static private Map<Integer, Case> toDoList = new HashMap<Integer, Case>();
+    static private Map<Integer, Deal> toDoList = new HashMap<Integer, Deal>();
 
-    static public synchronized void toDoListUpdater(int id, Case c) {
+    static public synchronized void toDoListUpdater(int id, Deal c) {
         c.setId(id);
         toDoList.put(id, c);
     }
 
-    static boolean containCase(int id) {
+    static boolean containDeal(int id) {
         if (toDoList.containsKey(id)) {
             return true;
         } else return false;
     }
 
-    static public synchronized int adCase(Case c) {
+    static public synchronized int adDeal(Deal c) {
         int id = currentId++;
         c.setId(id);
         toDoList.put(id, c);
         return id;
     }
-    static public Case getCase(int id) {
-        Case c;
+
+    static public Deal getDeal(int id) {
+        Deal c;
         if (toDoList.containsKey(id)) {
             c = toDoList.get(id);
         } else {
@@ -36,17 +39,17 @@ public class CasesList {
         return c;
     }
 
-    static public synchronized List<Case> getToDoList() {
-        List<Case> allCases = new ArrayList<>();
-        allCases.addAll(toDoList.values());
-        return allCases;
+    static public synchronized List<Deal> getToDoList() {
+        List<Deal> allDeals = new ArrayList<>();
+        allDeals.addAll(toDoList.values());
+        return allDeals;
     }
 
-    static synchronized void removeAllCases() {
+    static synchronized void removeAllDeals() {
         toDoList.clear();
     }
 
-    static synchronized void removeCase(int id) {
+    static synchronized void removeDeal(int id) {
         toDoList.remove(id);
     }
 }

@@ -1,10 +1,19 @@
-package main;
+package main.model;
 
-public class Case {
-    private String name;
+import javax.persistence.*;
+
+@Entity
+public class Deal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
     private int id;
-    Case(){}
-    Case(String name){
+    private String name;
+
+    Deal() {
+    }
+
+    Deal(String name) {
         this.name = name;
         id = 1;
     }
