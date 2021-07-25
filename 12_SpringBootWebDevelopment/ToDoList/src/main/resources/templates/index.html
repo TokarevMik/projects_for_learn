@@ -6,8 +6,11 @@
 </head>
 <body>
 "List of All Cases"
-<p th:text="${deals}">
+<!--<p th:text="${deals}"></p>-->
+    <div th:each="deal :${deals}">
+        <p th:text="${deal}"></p>
+    </div>
 
-</p>
+
 </body>
 </html>
