@@ -14,6 +14,7 @@ public class RedisStorage {
     // Объект для работы с Redis
     private Jedis jedis;
     private final static String KEY = "USERS";
+
     void init() {
 
         try {
@@ -36,12 +37,15 @@ public class RedisStorage {
     }
 
     public int getKeyOfUser(String name) {
-//        return (jedis.zrank(KEY, name)).intValue();
         return (jedis.zscore(KEY, name)).intValue();
     }
 
     public void userIncrement(double i, String name) {
         jedis.zincrby(KEY, i, name);
+    }
+
+    public void remUser(String name) { //delete user
+        jedis.zrem(KEY, name);
     }
 
     void shutdown() {

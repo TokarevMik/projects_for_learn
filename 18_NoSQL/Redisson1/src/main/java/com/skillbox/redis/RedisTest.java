@@ -9,25 +9,28 @@ public class RedisTest {
         for (int i = 1; i < 21; i++) {
             redis.addToStorage(("User " + i), i); //add user to redis
         }
-        while (true) {
-            for (int i = 0; i < 20; i++) {
-                int a = (int) (Math.random() * 50);//определение вставки
-                if (a % 38 == 0) {
-                    int numPayUser = 1 + (int) (Math.random() * 20); //число для вставки
-                    String payingUser = "User " + numPayUser;
-                    System.out.println(payingUser + " оплатил платную услугу");
-                    double incr = redis.getKeyOfUser(payingUser) - redis.getKeyOfUser(redis.getUser(i));
-                    if (incr != 0) {
-                        System.out.println("На главной странице показываем " + payingUser);
-                    }
-                    redis.userIncrement(incr, payingUser);
-                }
-                System.out.println("На главной странице показываем " + redis.getUser(i)); //print name of user
-                Thread.sleep(100);
+        int counterI = 1;
+        for (int i = 0; ; i++) {
 
+            int a = (int) (Math.random() * 50);//определение вставки
+            if (a % 38 == 0) {
+                int numPayUser = 1 + (int) (Math.random() * 20); //число для вставки
+                String payingUser = "User " + numPayUser;
+                System.out.println(payingUser + " оплатил платную услугу");
+                int key = redis.getKeyOfUser(redis.getUser(0));
+                redis.remUser(payingUser);
+                redis.addToStorage(payingUser,key);
             }
-            Thread.sleep(1000);
-            System.out.println();
+            System.out.println("На главной странице показываем " + redis.getUser(0)); //print name of user
+            redis.userIncrement(20, redis.getUser(0));
+
+            Thread.sleep(100);
+
+            if (counterI % 20 == 0) {
+                Thread.sleep(1000);
+                System.out.println();
+            } //визуальная отсечка списка
+            counterI++;
         }
 
     }
