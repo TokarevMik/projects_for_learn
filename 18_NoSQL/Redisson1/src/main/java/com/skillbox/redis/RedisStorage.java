@@ -44,10 +44,6 @@ public class RedisStorage {
         jedis.zincrby(KEY, i, name);
     }
 
-    public void remUser(String name) { //delete user
-        jedis.zrem(KEY, name);
-    }
-
     void shutdown() {
         jedis.shutdown();
     }
