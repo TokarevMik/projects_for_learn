@@ -1,13 +1,18 @@
-import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.Updates;
+import org.bson.BsonDocument;
 import org.bson.Document;
+
 import java.util.Arrays;
+import java.util.Scanner;
+import java.util.function.Consumer;
+
+import static com.mongodb.client.model.Accumulators.*;
+import static com.mongodb.client.model.Filters.lt;
 
 public class Main {
     static MongoClient mongoClient = new MongoClient("127.0.0.1", 27017);
@@ -17,77 +22,60 @@ public class Main {
 
 
     public static void main(String[] args) {
-//        shopsCollection.drop();
-//        goodsCollection.drop();
-//        Scanner scr = new Scanner(System.in);
-//        while (true) {
-//            System.out.println("Введите команду");
-//            String s = scr.nextLine();
-//            String[] strArr = s.split(" ");
-//            String command = (strArr[0]);
-//            if (command.equalsIgnoreCase("ДОБАВИТЬ_МАГАЗИН")) {
-//                addShop(strArr[1]);
-//            } else if (command.equalsIgnoreCase("ДОБАВИТЬ_ТОВАР")) {
-//                addGood(strArr[1]);
-//            } else if (command.equalsIgnoreCase("ВЫСТАВИТЬ_ТОВАР")) {
-//                putTheGoods(s);
-//            } else if (command.equalsIgnoreCase("СТАТИСТИКА_ТОВАРОВ")) {
-//                getAnExtract();
-//            }
-//        }
+        shopsCollection.drop();
+        goodsCollection.drop();
+        Scanner scr = new Scanner(System.in);
+        while (true) {
+            System.out.println("Введите команду");
+            String s = scr.nextLine();
+            String[] tokens = s.split(" ");
+            String command = (tokens[0]);
+            if (command.equalsIgnoreCase("ДОБАВИТЬ_МАГАЗИН")) {
+                shopsCollection.insertOne(Document.parse(
+                        String.format("{shop_name: \"%s\"}", tokens[1]))
+                );
+            } else if (command.equalsIgnoreCase("ДОБАВИТЬ_ТОВАР")) {
+                goodsCollection.insertOne(new Document()
+                        .append("goods_name", tokens[1])
+                        .append("price", Double.parseDouble(tokens[2])));
 
-        getAnExtract();
-    }
-
-    public static void addShop(String shopName) {
-        String shopName1 = shopName;
-        shopsCollection.insertOne(new Document()
-                .append("shop_name", shopName1));
-    }
-
-    public static void addGood(String goodName) {
-        String good = goodName.replaceAll("\\D+", "");
-        int price = Integer.parseInt(goodName.replaceAll("\\d+", ""));
-        goodsCollection.insertOne(new Document()
-                .append("goods_name", good)
-                .append("price", price));
-    }
-
-    public static void putTheGoods(String command) {
-        MongoCursor<String> files = shopsCollection.distinct("shops_name", String.class).iterator();
-        String shop;
-        String goods;
-        while (files.hasNext()) {
-            String d = files.next();
-            if (command.contains(files.next())) {
-                shop = files.next();
-                goods = command.replace(shop, "");
-                BasicDBObject find = new BasicDBObject();
-                find.put("shop_name", shop);
-                BasicDBObject newDocument = new BasicDBObject();
-                newDocument.put("goods", goods);
-                BasicDBObject updateObject = new BasicDBObject();
-                updateObject.put("$push", newDocument);
-                shopsCollection.updateOne(find, updateObject);
-            } else {
-                System.out.println("Неверная команда: магазин не существует");
+            } else if (command.equalsIgnoreCase("ВЫСТАВИТЬ_ТОВАР")) {
+                shopsCollection.updateOne(
+                        BsonDocument.parse(String.format("{shop_name: \"%s\"}", tokens[2])),
+                        Updates.addToSet("goods", tokens[1])
+                );
+            } else if (command.equalsIgnoreCase("СТАТИСТИКА_ТОВАРОВ")) {
+                getAnExtract();
             }
         }
-
     }
 
     public static void getAnExtract() {
-        Block<Document> printBlock = new Block<>() {
-            @Override
-            public void apply(final Document document) {
-                System.out.println(document.toJson());
-            }
-        };
 
         shopsCollection.aggregate(Arrays.asList(
-                Aggregates.lookup("shopsCollection", "goodsCollection", "goods_name", "GoodsPrice"),
+                Aggregates.lookup("all_goods", "goods", "goods_name", "GoodsPrice"),
                 Aggregates.unwind("$GoodsPrice"),
-                Aggregates.group("$shop_name", Accumulators.avg("avgPrice", "$GoodsPrice.price"))
-                )).forEach(printBlock);
+                Aggregates.sort(Sorts.descending("shop_name")),
+                Aggregates.group("$shop_name",
+                        avg("avgPrice", "$GoodsPrice.price"),
+                        min("minPrice", "$GoodsPrice.price"),
+                        max("maxPrice", "$GoodsPrice.price")
+                )
+        )).forEach((Consumer<Document>) d -> {
+            System.out.printf("Магазин: %s%n", d.get("_id"));
+            System.out.printf("Средняя стоимость товаров в магазине: %.1f%n", d.get("avgPrice"));
+            System.out.printf("Стоимость самого дешевого товрара в магазине: %.1f%n", d.get("minPrice"));
+            System.out.printf("Стоимость самого дорогово товрара в магазине: %.1f%n", d.get("maxPrice"));
+        });
+        System.out.println("****************");
+        shopsCollection.aggregate(Arrays.asList(
+                Aggregates.lookup("all_goods", "goods", "goods_name", "GoodsPrice"),
+                Aggregates.unwind("$GoodsPrice"),
+                Aggregates.match(lt("GoodsPrice.price", 100)),
+                Aggregates.sort(Sorts.descending("shop_name")),
+                Aggregates.group("$shop_name",
+                        sum("countCheap", 1)))).forEach((Consumer<Document>) d -> {
+            System.out.printf("Количество товаров в магазине %s дешевле 100 р. - %d%n", d.get("_id"), d.get("countCheap"));
+        });
     }
 }
