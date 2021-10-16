@@ -7,12 +7,13 @@ import com.mongodb.client.model.Updates;
 import org.bson.BsonDocument;
 import org.bson.Document;
 
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
 import static com.mongodb.client.model.Accumulators.*;
-import static com.mongodb.client.model.Filters.lt;
+import static com.mongodb.client.model.Filters.*;
 
 public class Main {
     static MongoClient mongoClient = new MongoClient("127.0.0.1", 27017);
@@ -22,8 +23,8 @@ public class Main {
 
 
     public static void main(String[] args) {
-        shopsCollection.drop();
-        goodsCollection.drop();
+//        shopsCollection.drop();
+//        goodsCollection.drop();
         Scanner scr = new Scanner(System.in);
         while (true) {
             System.out.println("Введите команду");
@@ -38,7 +39,6 @@ public class Main {
                 goodsCollection.insertOne(new Document()
                         .append("goods_name", tokens[1])
                         .append("price", Double.parseDouble(tokens[2])));
-
             } else if (command.equalsIgnoreCase("ВЫСТАВИТЬ_ТОВАР")) {
                 shopsCollection.updateOne(
                         BsonDocument.parse(String.format("{shop_name: \"%s\"}", tokens[2])),
@@ -59,16 +59,19 @@ public class Main {
                 Aggregates.group("$shop_name",
                         avg("avgPrice", "$GoodsPrice.price"),
                         min("minPrice", "$GoodsPrice.price"),
-                        max("maxPrice", "$GoodsPrice.price")
-                )
+                        max("maxPrice", "$GoodsPrice.price"),
+                        sum("countCheap", 1)
+                ),
+                Aggregates.match(lt("countCheap", 100))
         )).forEach((Consumer<Document>) d -> {
             System.out.printf("Магазин: %s%n", d.get("_id"));
             System.out.printf("Средняя стоимость товаров в магазине: %.1f%n", d.get("avgPrice"));
             System.out.printf("Стоимость самого дешевого товрара в магазине: %.1f%n", d.get("minPrice"));
             System.out.printf("Стоимость самого дорогово товрара в магазине: %.1f%n", d.get("maxPrice"));
+            System.out.printf("Количество товаров в магазине %s дешевле 100 р. - %d%n", d.get("_id"), d.get("countCheap"));
         });
         System.out.println("****************");
-        shopsCollection.aggregate(Arrays.asList(
+/*        shopsCollection.aggregate(Arrays.asList(
                 Aggregates.lookup("all_goods", "goods", "goods_name", "GoodsPrice"),
                 Aggregates.unwind("$GoodsPrice"),
                 Aggregates.match(lt("GoodsPrice.price", 100)),
@@ -76,6 +79,6 @@ public class Main {
                 Aggregates.group("$shop_name",
                         sum("countCheap", 1)))).forEach((Consumer<Document>) d -> {
             System.out.printf("Количество товаров в магазине %s дешевле 100 р. - %d%n", d.get("_id"), d.get("countCheap"));
-        });
-    }
-}
+        });*/
+    }//1
+}//2
