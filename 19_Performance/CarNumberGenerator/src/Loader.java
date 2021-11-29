@@ -25,15 +25,11 @@ public class Loader {
                 }//end for 2
 //                writer.write(builder.toString());
                 Thread thread1 = new Thread(new WritingClass("res/numbers1.txt", builder.toString()));
-                thread1.start();
-                thread1.join();
                 Thread thread2 = new Thread(new WritingClass("res/numbers2.txt", builder.toString()));
+                thread1.start();
                 thread2.start();
-                thread2.join();
             }
         }
-//        writer.flush();
-//        writer.close();
         System.out.println((System.currentTimeMillis() - start) + " ms");
     }
 

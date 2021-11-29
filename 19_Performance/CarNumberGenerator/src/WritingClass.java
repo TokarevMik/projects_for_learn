@@ -5,14 +5,14 @@ import java.io.PrintWriter;
 
 public class WritingClass implements Runnable{
     String path;
-    String num;
+    String f;
     public WritingClass(String path, String f) {
         this.path = path;
-        this.num = f;
+        this.f = f;
     }
     @Override
     public void run() {
-        PrintToFile(path,num);
+        PrintToFile(path,f);
     }
     private static void PrintToFile(String path,String num) {
         try {
