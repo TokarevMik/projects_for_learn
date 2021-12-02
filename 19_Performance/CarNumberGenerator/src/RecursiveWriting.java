@@ -1,47 +1,59 @@
-import java.util.concurrent.RecursiveTask;
+import java.io.PrintWriter;
+import java.util.concurrent.RecursiveAction;
 
-public class RecursiveWriting extends RecursiveTask<StringBuilder> {
-    StringBuilder builder;
-    int regionCode;
-    int start, end;
+public class RecursiveWriting extends RecursiveAction {
+    private int regionCodeStart;
+    private int regionCodeEnd;
+    private int separator;
 
-    public RecursiveWriting(int regionCode, int start, int end) {
-        this.regionCode = regionCode;
-        this.start = start;
-        this.end = end;
+    public RecursiveWriting(int regionCodeStart, int regionCodeEnd, int separator) {
+        this.regionCodeStart = regionCodeStart;
+        this.regionCodeEnd = regionCodeEnd;
+        this.separator = separator;
     }
 
-    char letters[] = {'У', 'К', 'Е', 'Н', 'Х', 'В', 'А', 'Р', 'О', 'С', 'М', 'Т'};
     @Override
-    protected StringBuilder compute() {
-        StringBuilder builder = new StringBuilder();
-        if((end-start)>150){
-            for (int number = start; number < end; number++) {
-                for (char firstLetter : letters) {
-                    for (char secondLetter : letters) {
-                        for (char thirdLetter : letters) {
-                            builder.append(firstLetter);
-                            padNumber(number, 3, builder);
-                            builder.append(secondLetter);
-                            builder.append(thirdLetter);
-                            padNumber(regionCode, 2, builder);
-                            builder.append("\n");
+    protected void compute() {
+        try {
+            char[] letters = {'У', 'К', 'Е', 'Н', 'Х', 'В', 'А', 'Р', 'О', 'С', 'М', 'Т'};
+            if ((regionCodeEnd - regionCodeStart) <= separator) {
+                long start = System.currentTimeMillis();
+                PrintWriter writer = new PrintWriter("res/numbersFrom" + regionCodeStart + "To" + regionCodeEnd + ".txt");
+
+                for (int regionCode = regionCodeStart; regionCode <= this.regionCodeEnd; regionCode++) {
+
+                    StringBuilder builder = new StringBuilder();
+                    for (int number = 1; number < 1000; number++) {
+                        for (char firstLetter : letters) {
+                            for (char secondLetter : letters) {
+                                for (char thirdLetter : letters) {
+                                    builder.append(firstLetter);
+                                    padNumber(number, 3, builder);
+                                    builder.append(secondLetter);
+                                    builder.append(thirdLetter);
+                                    padNumber(regionCode, 2, builder);
+                                    builder.append("\n");
+                                }
+                            }
                         }
-                    }//end for 1
-                }//end for 2
+                    }
+                    writer.write(builder.toString());
+                }
+                writer.flush();
+                writer.close();
+                System.out.println((System.currentTimeMillis() - start) + " ms");
             }
-        } else {
-            int middle = (end+start)/2;
-            RecursiveWriting subTask1 = new RecursiveWriting (regionCode,start,middle);
-            RecursiveWriting subTask2 = new RecursiveWriting (regionCode,middle,end);
-            subTask1.fork();  // Каждая из задач запускается явно
-            subTask2.fork();
+            else {
+                int regionMiddle = (regionCodeStart + regionCodeEnd) / 2;
+                invokeAll(new RecursiveWriting(regionCodeStart, regionMiddle, separator),
+                        new RecursiveWriting(regionMiddle, regionCodeEnd, separator));
+            }
 
-            builder.append(subTask1.join()).append(subTask2.join());
-
+        } catch (Exception ex) {
+            System.out.println("Ошибка: " + ex);
         }
-        return builder;
-    }//end compute
+    }
+
     private static void padNumber(int number, int numberLength, StringBuilder builder) {
         int padSize = numberLength - Integer.toString(number).length();
         for (int i = 0; i < padSize; i++) {
@@ -49,4 +61,4 @@ public class RecursiveWriting extends RecursiveTask<StringBuilder> {
         }
         builder.append(number);
     }
-}//end class
+}
