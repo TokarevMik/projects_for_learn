@@ -1,14 +1,20 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ForkJoinPool;
 
 public class Loader {
 
     public static void main(String[] args) throws Exception {
         long start = System.currentTimeMillis();
-        char letters[] = {'У', 'К', 'Е', 'Н', 'Х', 'В', 'А', 'Р', 'О', 'С', 'М', 'Т'};
+        PrintWriter writer = new PrintWriter(new FileWriter("res/numbers.txt", true));
+//        char letters[] = {'У', 'К', 'Е', 'Н', 'Х', 'В', 'А', 'Р', 'О', 'С', 'М', 'Т'};
         for (int regionCode = 1; regionCode < 100; regionCode++) {
+            ForkJoinPool fjp = new ForkJoinPool();//2
+            StringBuilder builder;//2
+            RecursiveWriting task = new RecursiveWriting(regionCode, 1, 1000);//2
+            builder = fjp.invoke(task); //2
+           /* StringBuilder builder = new StringBuilder();
             for (int number = 1; number < 1000; number++) {
-                StringBuilder builder = new StringBuilder();
                 for (char firstLetter : letters) {
                     for (char secondLetter : letters) {
                         for (char thirdLetter : letters) {
@@ -23,21 +29,17 @@ public class Loader {
                         }
                     }//end for 1
                 }//end for 2
-//                writer.write(builder.toString());
-                Thread thread1 = new Thread(new WritingClass("res/numbers1.txt", builder.toString()));
-                Thread thread2 = new Thread(new WritingClass("res/numbers2.txt", builder.toString()));
-                thread1.start();
-                thread2.start();
-            }
+            } //1*/
+            writer.write(builder.toString());
         }
         System.out.println((System.currentTimeMillis() - start) + " ms");
     }
 
-    private static void padNumber(int number, int numberLength, StringBuilder builder) {
+  /*  private static void padNumber(int number, int numberLength, StringBuilder builder) {
         int padSize = numberLength - Integer.toString(number).length();
         for (int i = 0; i < padSize; i++) {
             builder.append(0);
         }
         builder.append(number);
-    }
+    }*/
 }
