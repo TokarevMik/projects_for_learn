@@ -5,30 +5,47 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Loader {
-
-    private static SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
-    private static SimpleDateFormat visitDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-
     private static HashMap<Integer, WorkTime> voteStationWorkTimes = new HashMap<>();
     private static HashMap<Voter, Integer> voterCounts = new HashMap<>();
+    private static SimpleDateFormat visitDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    private static SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
 
     public static void main(String[] args) throws Exception {
-        String fileName = "res/data-1M.xml";
-
-        parseFile(fileName);
+        long usagMem1 = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        String fileName = "res/data-18M.xml";
+//        parseFile(fileName); // DOM
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        XMLHandler handler = new XMLHandler();
+        parser.parse(new File(fileName), handler);
+        voteStationWorkTimes = handler.getWorkTime();
+        voterCounts = handler.getVoterCounter();
+//        WorkTime[] stationWorkTimes = handler.getWorkTime();
+        long usagMem2 = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory() - usagMem1;
 
         //Printing results
+
+ /*             for (int i = 1; i < stationWorkTimes.length; i++) {
+            try {
+                System.out.println("\t" + i + " - " + stationWorkTimes[i]);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Ошибка - " + i);
+            }
+        }*/   // цикл для проверки массива
+
         System.out.println("Voting station work times: ");
         for (Integer votingStation : voteStationWorkTimes.keySet()) {
             WorkTime workTime = voteStationWorkTimes.get(votingStation);
             System.out.println("\t" + votingStation + " - " + workTime);
-        }
+        }  // цикл для проверки HashMap
 
         System.out.println("Duplicated voters: ");
         for (Voter voter : voterCounts.keySet()) {
@@ -37,18 +54,18 @@ public class Loader {
                 System.out.println("\t" + voter + " - " + count);
             }
         }
+        System.out.println("Memory - " + usagMem2);   //HashMap
     }
 
-    private static void parseFile(String fileName) throws Exception {
+/*    private static void parseFile(String fileName) throws Exception {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.parse(new File(fileName));
-
         findEqualVoters(doc);
         fixWorkTimes(doc);
-    }
+    }*/
 
-    private static void findEqualVoters(Document doc) throws Exception {
+/*    private static void findEqualVoters(Document doc) throws Exception {
         NodeList voters = doc.getElementsByTagName("voter");
         int votersCount = voters.getLength();
         for (int i = 0; i < votersCount; i++) {
@@ -56,30 +73,30 @@ public class Loader {
             NamedNodeMap attributes = node.getAttributes();
 
             String name = attributes.getNamedItem("name").getNodeValue();
-            Date birthDay = birthDayFormat
-                .parse(attributes.getNamedItem("birthDay").getNodeValue());
+            Date birthDay = birthDayFormat.parse(attributes.getNamedItem("birthDay").getNodeValue());
 
             Voter voter = new Voter(name, birthDay);
             Integer count = voterCounts.get(voter);
             voterCounts.put(voter, count == null ? 1 : count + 1);
         }
-    }
+    }*/
 
-    private static void fixWorkTimes(Document doc) throws Exception {
+/*    private static void fixWorkTimes(Document doc) throws Exception {
         NodeList visits = doc.getElementsByTagName("visit");
         int visitCount = visits.getLength();
-        for (int i = 0; i < visitCount; i++) {
+        for(int i = 0; i < visitCount; i++)
+        {
             Node node = visits.item(i);
             NamedNodeMap attributes = node.getAttributes();
-
             Integer station = Integer.parseInt(attributes.getNamedItem("station").getNodeValue());
             Date time = visitDateFormat.parse(attributes.getNamedItem("time").getNodeValue());
             WorkTime workTime = voteStationWorkTimes.get(station);
-            if (workTime == null) {
+            if(workTime == null)
+            {
                 workTime = new WorkTime();
                 voteStationWorkTimes.put(station, workTime);
             }
             workTime.addVisitTime(time.getTime());
         }
-    }
+    }*/
 }
