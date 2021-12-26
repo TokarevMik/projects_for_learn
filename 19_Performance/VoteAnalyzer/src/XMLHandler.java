@@ -25,6 +25,14 @@ public class XMLHandler extends DefaultHandler {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            /*if (qName.equals("voter")) {
+                String name = attributes.getValue("name");
+                String birthDate = attributes.getValue("birthDay");
+                countVoterBuilder(name, birthDate);
+                stringBuilderCount++;
+
+            }*///вторая проба
+
             Voter key = new Voter(name, birthDate);
             if (!voterCounts.containsKey(key)) {
                 voterCounts.put(key, 1);
