@@ -9,9 +9,10 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class XMLHandler extends DefaultHandler {
-    private static StringBuilder insertQuery = new StringBuilder(79900);
+    private static StringBuilder insertQuery = new StringBuilder();
     private static HashMap<Voter, Integer> voterCounts = new HashMap<>();
     private static SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
+    private static int stringBuilderCount = 0;
     String name;
     Date birthDate;
 
@@ -28,7 +29,9 @@ public class XMLHandler extends DefaultHandler {
             if (!voterCounts.containsKey(key)) {
                 voterCounts.put(key, 1);
                 String date = attributes.getValue("birthDay");
+                stringBuilderCount++;
                 countVoterBuilder(name, date);
+
             } else {
                 voterCounts.replace(key, voterCounts.get(key) + 1);
                 int count = voterCounts.get(key);
@@ -47,10 +50,11 @@ public class XMLHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equals("voter")) {
-            if (insertQuery.length() > 800000) {
+            if (stringBuilderCount>=500000) {
                 try {
                     DBConnection.executeMultiInsert(insertQuery);
-                    insertQuery = new StringBuilder(79900);
+                    insertQuery = new StringBuilder();
+                    stringBuilderCount=0;
                     System.out.println("Сброс");
                 } catch (SQLException e) {
                     e.printStackTrace();
