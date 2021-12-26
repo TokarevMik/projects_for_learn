@@ -20,6 +20,9 @@ public class DBConnection {
                         "birthDate DATE NOT NULL, " +
                         "`count` INT NOT NULL, " +
                         "PRIMARY KEY(id))");
+//                        "PRIMARY KEY(id), " +
+//                        "UNIQUE KEY name_date(birthDate ,name(50)))");
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -32,6 +35,13 @@ public class DBConnection {
                 "VALUES" + insertQuery.toString();
         DBConnection.getConnection().createStatement().execute(sql);
     }
+  /*  public static void executeMultiInsert(StringBuilder insertQuery) throws SQLException {
+        String sql = "INSERT INTO voter_count(name, birthDate, `count`) " +
+                "VALUES" + insertQuery.toString() +
+                "ON DUPLICATE KEY UPDATE count = count + 1";
+        DBConnection.getConnection().createStatement().execute(sql);
+    }*/
+
     public static void executeUpdate(String name, int count, String birthDate) throws SQLException {
         String sql = "update voter_count set count=? where name=? AND birthDate=?";
         PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(sql);
