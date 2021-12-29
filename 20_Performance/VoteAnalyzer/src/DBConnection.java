@@ -3,7 +3,6 @@ import java.sql.*;
 public class DBConnection {
 
     private static Connection connection;
-//    private static String dbName = "learn";
     private static String dbUser = "root";
     private static String dbPass = "cuafbu5k3a";
     private static String url = "jdbc:mysql://localhost:3306/learn?allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false&serverTimezone=UTC";
