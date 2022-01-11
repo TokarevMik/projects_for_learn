@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class XMLHandler extends DefaultHandler {
     private static StringBuilder insertQuery = new StringBuilder();
-    private static SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
+//    private static SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
     private static int stringBuilderCount = 0;
 
     @Override
