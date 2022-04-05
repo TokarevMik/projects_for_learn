@@ -2,7 +2,7 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) {
-        String url ="jdbc:mysql://localhost:3306/skillbox?useSSL=false&serverTimezone=UTC";
+        String url ="jdbc:mysql://localhost:3306/learn?useSSL=false&serverTimezone=UTC";
         String user = "root";
         String pass = "cuafbu5k3a";
         try {

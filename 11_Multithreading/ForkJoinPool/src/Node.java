@@ -48,15 +48,15 @@ public class Node {
                 Matcher matcher = pattern.matcher(linkHref);
                 Matcher matcher2 = pattern2.matcher(linkHref);
                 if (matcher.matches()) {
-                    int levelOfChilde = takePageLevel(linkHref) - takePageLevel(url);
+                    int levelOfChilde = takePageLevel(linkHref) - takePageLevel(url);  //проверка уровня глубины дочерней ссылки
                     if (levelOfChilde == 1) {
-                        nodes.add(new Node(linkHref, takePageLevel(linkHref)));
+                        nodes.add(new Node(linkHref, takePageLevel(linkHref)));   // добавление дочерней ссылки в список , но уровнем не ниже 1 от родительской
                     }
 
                 }
                 if (matcher2.matches()) {
                     linkHref = domain.concat(linkHref);
-                    nodes.add(new Node(linkHref, takePageLevel(linkHref)));
+                    nodes.add(new Node(linkHref, takePageLevel(linkHref))); // ссылка типа "/****/"
                 }
             }
         } catch (

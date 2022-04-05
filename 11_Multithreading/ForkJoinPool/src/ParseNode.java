@@ -10,7 +10,7 @@ public class ParseNode extends RecursiveTask<Set<String>> {
         this.node = note;
     }
 
-    public static Set<String> isAlreadyRead = new CopyOnWriteArraySet<>();
+    public static Set<String> isAlreadyRead = new CopyOnWriteArraySet<>(); //список названий (прочитанных)
 
     public Set<String> compute() {
         Set<String> linksNames = new CopyOnWriteArraySet<>();
@@ -40,5 +40,4 @@ public class ParseNode extends RecursiveTask<Set<String>> {
         }
         return linksNames;
     }
-
 }

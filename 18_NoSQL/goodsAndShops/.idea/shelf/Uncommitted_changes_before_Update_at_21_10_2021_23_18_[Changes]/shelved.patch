@@ -1,0 +1,2615 @@
+Index: ../../12_SpringBootWebDevelopment/BookLibrary/BookLibrary.iml
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/BookLibrary/BookLibrary.iml b/../../12_SpringBootWebDevelopment/BookLibrary/BookLibrary.iml
+deleted file mode 100644
+--- a/../../12_SpringBootWebDevelopment/BookLibrary/BookLibrary.iml	(revision 7656451eb0c90ee2197186bc351fa2fe7d5ae75a)
++++ /dev/null	(revision 7656451eb0c90ee2197186bc351fa2fe7d5ae75a)
+@@ -1,2 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="JAVA_MODULE" version="4" />
+\ No newline at end of file
+Index: ../MyFavoriteBooks/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../MyFavoriteBooks/.idea/misc.xml b/../MyFavoriteBooks/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1631217014547)
++++ b/../MyFavoriteBooks/.idea/misc.xml	(date 1631217014547)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="MavenProjectsManager">
++    <option name="originalFiles">
++      <list>
++        <option value="$PROJECT_DIR$/pom.xml" />
++      </list>
++    </option>
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="openjdk-15" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../MyFavoriteBooks/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../MyFavoriteBooks/.idea/vcs.xml b/../MyFavoriteBooks/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1631217014650)
++++ b/../MyFavoriteBooks/.idea/vcs.xml	(date 1631217014650)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../MyFavoriteBooks/.idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../MyFavoriteBooks/.idea/runConfigurations.xml b/../MyFavoriteBooks/.idea/runConfigurations.xml
+new file mode 100644
+--- /dev/null	(date 1631217014606)
++++ b/../MyFavoriteBooks/.idea/runConfigurations.xml	(date 1631217014606)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RunConfigurationProducerService">
++    <option name="ignoredProducers">
++      <set>
++        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../MyFavoriteBooks/.idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../MyFavoriteBooks/.idea/compiler.xml b/../MyFavoriteBooks/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1633357893205)
++++ b/../MyFavoriteBooks/.idea/compiler.xml	(date 1633357893205)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <annotationProcessing>
++      <profile name="Maven default annotation processors profile" enabled="true">
++        <sourceOutputDir name="target/generated-sources/annotations" />
++        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
++        <outputRelativeToContentRoot value="true" />
++        <module name="MyFavoriteBooks" />
++      </profile>
++    </annotationProcessing>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../MyFavoriteBooks/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../MyFavoriteBooks/.idea/.gitignore b/../MyFavoriteBooks/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1631217030401)
++++ b/../MyFavoriteBooks/.idea/.gitignore	(date 1631217030401)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: ../MyFavoriteBooks/src/main/java/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import com.mongodb.MongoClient;\r\nimport com.mongodb.client.MongoCollection;\r\nimport com.mongodb.client.MongoDatabase;\r\nimport org.bson.Document;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Arrays;\r\nimport java.util.List;\r\nimport java.util.function.Consumer;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        MongoClient mongoClient = new MongoClient(\"127.0.0.1\", 27017);\r\n\r\n        MongoDatabase database = mongoClient.getDatabase(\"local\");\r\n\r\n        MongoCollection<Document> collection = database.getCollection(\"MyFavoriteBooks\");\r\n\r\n        collection.drop();\r\n\r\n        List<Document> listDocuments = new ArrayList<>();\r\n\r\n        Document document1 = new Document()\r\n                .append(\"name\", \"The Girl with the Dragon Tattoo\")\r\n                .append(\"author\", \"Stig Larsson\")\r\n                .append(\"publishing\", 2005);\r\n        listDocuments.add(document1);\r\n\r\n        listDocuments.add(new Document()\r\n                .append(\"name\", \"The Girl Who Kicked the Hornets' Nest\")\r\n                .append(\"author\", \"Stig Larsson\")\r\n                .append(\"publishing\", 2007));\r\n\r\n        listDocuments.add(new Document()\r\n                .append(\"name\", \"A Hero of Our Time\")\r\n                .append(\"author\", \"Mikhail Lermontov\")\r\n                .append(\"publishing\", 1839));\r\n\r\n        listDocuments.add(new Document()\r\n                .append(\"name\", \"Dune\")\r\n                .append(\"author\", \"Frank Herbert\")\r\n                .append(\"publishing\", 1966));\r\n        listDocuments.add(new Document()\r\n                .append(\"name\", \"Thinking in Java\")\r\n                .append(\"author\", \"Bruce Eckel\")\r\n                .append(\"publishing\", 1998));\r\n\r\n        collection.insertMany(listDocuments);\r\n\r\n        collection.find().limit(1).sort(new Document(\"publishing\", 1)).forEach((Consumer<Document>) System.out::println);// самая старая книга\r\n        System.out.println(\"************************\");\r\n        collection.find(new Document(\"author\", \"Stig Larsson\")).forEach((Consumer<Document>) System.out::println); // выборка по автору\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../MyFavoriteBooks/src/main/java/Main.java b/../MyFavoriteBooks/src/main/java/Main.java
+--- a/../MyFavoriteBooks/src/main/java/Main.java	(revision 7656451eb0c90ee2197186bc351fa2fe7d5ae75a)
++++ b/../MyFavoriteBooks/src/main/java/Main.java	(date 1633372774124)
+@@ -1,5 +1,7 @@
++import com.mongodb.BasicDBObject;
+ import com.mongodb.MongoClient;
+ import com.mongodb.client.MongoCollection;
++import com.mongodb.client.MongoCursor;
+ import com.mongodb.client.MongoDatabase;
+ import org.bson.Document;
+ 
+@@ -24,7 +26,20 @@
+                 .append("name", "The Girl with the Dragon Tattoo")
+                 .append("author", "Stig Larsson")
+                 .append("publishing", 2005);
+-        listDocuments.add(document1);
++//        listDocuments.add(document1);
++
++        collection.insertOne(document1);
++
++        BasicDBObject query = new BasicDBObject();
++        query.put("name","The Girl with the Dragon Tattoo");
++
++        BasicDBObject newDocument = new BasicDBObject();
++        newDocument.put("co-author","Gogol");
++
++        BasicDBObject updateObject = new BasicDBObject();
++        updateObject.put("$push", newDocument);
++        collection.updateOne(query, updateObject);
++
+ 
+         listDocuments.add(new Document()
+                 .append("name", "The Girl Who Kicked the Hornets' Nest")
+@@ -47,8 +62,14 @@
+ 
+         collection.insertMany(listDocuments);
+ 
+-        collection.find().limit(1).sort(new Document("publishing", 1)).forEach((Consumer<Document>) System.out::println);// самая старая книга
+-        System.out.println("************************");
+-        collection.find(new Document("author", "Stig Larsson")).forEach((Consumer<Document>) System.out::println); // выборка по автору
++        MongoCursor<String> files = collection.distinct("author", String.class).iterator();
++        while(files.hasNext()) {
++            String s = files.next();
++            System.out.println(s);
++        }
++
++//        collection.find().limit(1).sort(new Document("publishing", 1)).forEach((Consumer<Document>) System.out::println);// самая старая книга
++//        System.out.println("************************");
++//        collection.find(new Document("author", "Stig Larsson")).forEach((Consumer<Document>) System.out::println); // выборка по автору
+     }
+ }
+Index: ../MyFavoriteBooks/.idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../MyFavoriteBooks/.idea/jarRepositories.xml b/../MyFavoriteBooks/.idea/jarRepositories.xml
+new file mode 100644
+--- /dev/null	(date 1631217046166)
++++ b/../MyFavoriteBooks/.idea/jarRepositories.xml	(date 1631217046166)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Central Repository" />
++      <option name="url" value="https://repo.maven.apache.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/.gitignore b/../../12_SpringBootWebDevelopment/ToDoList/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1627900453282)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/.gitignore	(date 1627900453282)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/ToDoList.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/ToDoList.iml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/ToDoList.iml
+new file mode 100644
+--- /dev/null	(date 1627900453221)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/ToDoList.iml	(date 1627900453221)
+@@ -0,0 +1,82 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
++    <output url="file://$MODULE_DIR$/target/classes" />
++    <output-test url="file://$MODULE_DIR$/target/test-classes" />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
++      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
++      <excludeFolder url="file://$MODULE_DIR$/target" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.5.1" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.4" level="project" />
++    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.4" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.14.1" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.14.1" level="project" />
++    <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.7.32" level="project" />
++    <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.28" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.4" level="project" />
++    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.4" level="project" />
++    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.4" level="project" />
++    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.4" level="project" />
++    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.4" level="project" />
++    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.12.4" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.50" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.50" level="project" />
++    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.50" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-jpa:2.5.1" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.7" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:4.0.3" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: jakarta.transaction:jakarta.transaction-api:1.3.3" level="project" />
++    <orderEntry type="library" name="Maven: jakarta.persistence:jakarta.persistence-api:2.2.3" level="project" />
++    <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.4.32.Final" level="project" />
++    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.4.2.Final" level="project" />
++    <orderEntry type="library" name="Maven: org.javassist:javassist:3.27.0-GA" level="project" />
++    <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.10.22" level="project" />
++    <orderEntry type="library" name="Maven: antlr:antlr:2.7.7" level="project" />
++    <orderEntry type="library" name="Maven: org.jboss:jandex:2.2.3.Final" level="project" />
++    <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.5.1" level="project" />
++    <orderEntry type="library" name="Maven: org.dom4j:dom4j:2.1.3" level="project" />
++    <orderEntry type="library" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.1.2.Final" level="project" />
++    <orderEntry type="library" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.4" level="project" />
++    <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
++    <orderEntry type="library" name="Maven: org.glassfish.jaxb:txw2:2.3.4" level="project" />
++    <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.12" level="project" />
++    <orderEntry type="library" scope="RUNTIME" name="Maven: com.sun.activation:jakarta.activation:1.2.2" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.32" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.9" level="project" />
++    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.25" level="project" />
++    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
++    <orderEntry type="library" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
++    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.5.3" level="project" />
++    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.12.RELEASE" level="project" />
++    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:3.0.12.RELEASE" level="project" />
++    <orderEntry type="library" name="Maven: org.attoparser:attoparser:2.0.5.RELEASE" level="project" />
++    <orderEntry type="library" name="Maven: org.unbescape:unbescape:1.1.6.RELEASE" level="project" />
++    <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE" level="project" />
++  </component>
++</module>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/compiler.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1627900453051)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/compiler.xml	(date 1627900453051)
+@@ -0,0 +1,21 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <annotationProcessing>
++      <profile name="Maven default annotation processors profile" enabled="true">
++        <sourceOutputDir name="target/generated-sources/annotations" />
++        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
++        <outputRelativeToContentRoot value="true" />
++        <module name="ToDoList" />
++      </profile>
++    </annotationProcessing>
++    <bytecodeTargetLevel>
++      <module name="ToDoList" target="8" />
++    </bytecodeTargetLevel>
++  </component>
++  <component name="JavacSettings">
++    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
++      <module name="ToDoList" options="-parameters" />
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/encodings.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/encodings.xml
+new file mode 100644
+--- /dev/null	(date 1627900453728)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/encodings.xml	(date 1627900453728)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Encoding">
++    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/jarRepositories.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/jarRepositories.xml
+new file mode 100644
+--- /dev/null	(date 1627900453063)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/jarRepositories.xml	(date 1627900453063)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Central Repository" />
++      <option name="url" value="https://repo.maven.apache.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__antlr_antlr_2_7_7.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__antlr_antlr_2_7_7.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__antlr_antlr_2_7_7.xml
+new file mode 100644
+--- /dev/null	(date 1627900453677)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__antlr_antlr_2_7_7.xml	(date 1627900453677)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: antlr:antlr:2.7.7">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453143)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_4.xml	(date 1627900453143)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: ch.qos.logback:logback-classic:1.2.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.2.4/logback-classic-1.2.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.2.4/logback-classic-1.2.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.2.4/logback-classic-1.2.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../09_FilesAndNetwork/CsvReader/CsvReader.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../09_FilesAndNetwork/CsvReader/CsvReader.iml b/../../09_FilesAndNetwork/CsvReader/CsvReader.iml
+new file mode 100644
+--- /dev/null	(date 1631473752000)
++++ b/../../09_FilesAndNetwork/CsvReader/CsvReader.iml	(date 1631473752000)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453121)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_4.xml	(date 1627900453121)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: ch.qos.logback:logback-core:1.2.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.4/logback-core-1.2.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.4/logback-core-1.2.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.4/logback-core-1.2.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../09_FilesAndNetwork/CsvReader/.idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../09_FilesAndNetwork/CsvReader/.idea/modules.xml b/../../09_FilesAndNetwork/CsvReader/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1631473752077)
++++ b/../../09_FilesAndNetwork/CsvReader/.idea/modules.xml	(date 1631473752077)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/CsvReader.iml" filepath="$PROJECT_DIR$/CsvReader.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml
+new file mode 100644
+--- /dev/null	(date 1627900453707)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml	(date 1627900453707)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.fasterxml:classmate:1.5.1">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.5.1/classmate-1.5.1.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.5.1/classmate-1.5.1-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.5.1/classmate-1.5.1-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_12_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_12_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_12_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453110)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_12_4.xml	(date 1627900453110)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.12.4/jackson-annotations-2.12.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.12.4/jackson-annotations-2.12.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.12.4/jackson-annotations-2.12.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_12_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_12_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_12_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453243)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_12_4.xml	(date 1627900453243)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.12.4/jackson-core-2.12.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.12.4/jackson-core-2.12.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.12.4/jackson-core-2.12.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../09_FilesAndNetwork/CsvReader/.idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../09_FilesAndNetwork/CsvReader/.idea/runConfigurations.xml b/../../09_FilesAndNetwork/CsvReader/.idea/runConfigurations.xml
+new file mode 100644
+--- /dev/null	(date 1631473752166)
++++ b/../../09_FilesAndNetwork/CsvReader/.idea/runConfigurations.xml	(date 1631473752166)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RunConfigurationProducerService">
++    <option name="ignoredProducers">
++      <set>
++        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../09_FilesAndNetwork/CsvReader/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../09_FilesAndNetwork/CsvReader/.idea/misc.xml b/../../09_FilesAndNetwork/CsvReader/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1631473752130)
++++ b/../../09_FilesAndNetwork/CsvReader/.idea/misc.xml	(date 1631473752130)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-15" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_12_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_12_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_12_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453232)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_12_4.xml	(date 1627900453232)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.12.4/jackson-databind-2.12.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.12.4/jackson-databind-2.12.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.12.4/jackson-databind-2.12.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../09_FilesAndNetwork/CsvReader/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../09_FilesAndNetwork/CsvReader/.idea/.gitignore b/../../09_FilesAndNetwork/CsvReader/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1631473753286)
++++ b/../../09_FilesAndNetwork/CsvReader/.idea/.gitignore	(date 1631473753286)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_12_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_12_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_12_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453204)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_12_4.xml	(date 1627900453204)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.12.4/jackson-datatype-jdk8-2.12.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.12.4/jackson-datatype-jdk8-2.12.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.12.4/jackson-datatype-jdk8-2.12.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../09_FilesAndNetwork/CsvReader/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../09_FilesAndNetwork/CsvReader/.idea/vcs.xml b/../../09_FilesAndNetwork/CsvReader/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1631473752195)
++++ b/../../09_FilesAndNetwork/CsvReader/.idea/vcs.xml	(date 1631473752195)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_12_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_12_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_12_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453177)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_12_4.xml	(date 1627900453177)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.12.4/jackson-datatype-jsr310-2.12.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.12.4/jackson-datatype-jsr310-2.12.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.12.4/jackson-datatype-jsr310-2.12.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_12_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_12_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_12_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453313)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_12_4.xml	(date 1627900453313)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.12.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/module/jackson-module-parameter-names/2.12.4/jackson-module-parameter-names-2.12.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/module/jackson-module-parameter-names/2.12.4/jackson-module-parameter-names-2.12.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/module/jackson-module-parameter-names/2.12.4/jackson-module-parameter-names-2.12.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml
+new file mode 100644
+--- /dev/null	(date 1627900453302)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml	(date 1627900453302)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.sun.activation:jakarta.activation:1.2.2">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_12.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_12.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_12.xml
+new file mode 100644
+--- /dev/null	(date 1627900453291)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_12.xml	(date 1627900453291)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.sun.istack:istack-commons-runtime:3.0.12">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/sun/istack/istack-commons-runtime/3.0.12/istack-commons-runtime-3.0.12.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/sun/istack/istack-commons-runtime/3.0.12/istack-commons-runtime-3.0.12-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/sun/istack/istack-commons-runtime/3.0.12/istack-commons-runtime-3.0.12-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_zaxxer_HikariCP_4_0_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_zaxxer_HikariCP_4_0_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_zaxxer_HikariCP_4_0_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453002)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__com_zaxxer_HikariCP_4_0_3.xml	(date 1627900453002)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: com.zaxxer:HikariCP:4.0.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml
+new file mode 100644
+--- /dev/null	(date 1627900453337)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml	(date 1627900453337)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453788)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml	(date 1627900453788)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: jakarta.persistence:jakarta.persistence-api:2.2.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/persistence/jakarta.persistence-api/2.2.3/jakarta.persistence-api-2.2.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/persistence/jakarta.persistence-api/2.2.3/jakarta.persistence-api-2.2.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/persistence/jakarta.persistence-api/2.2.3/jakarta.persistence-api-2.2.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453715)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml	(date 1627900453715)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: jakarta.transaction:jakarta.transaction-api:1.3.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/transaction/jakarta.transaction-api/1.3.3/jakarta.transaction-api-1.3.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/transaction/jakarta.transaction-api/1.3.3/jakarta.transaction-api-1.3.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/transaction/jakarta.transaction-api/1.3.3/jakarta.transaction-api-1.3.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453268)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml	(date 1627900453268)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/xml/bind/jakarta.xml.bind-api/2.3.3/jakarta.xml.bind-api-2.3.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/xml/bind/jakarta.xml.bind-api/2.3.3/jakarta.xml.bind-api-2.3.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/jakarta/xml/bind/jakarta.xml.bind-api/2.3.3/jakarta.xml.bind-api-2.3.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml
+new file mode 100644
+--- /dev/null	(date 1627900453468)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml	(date 1627900453468)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: javax.activation:javax.activation-api:1.2.0">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml
+new file mode 100644
+--- /dev/null	(date 1627900453447)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml	(date 1627900453447)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: javax.xml.bind:jaxb-api:2.3.1">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_25.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_25.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_25.xml
+new file mode 100644
+--- /dev/null	(date 1627900453165)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_25.xml	(date 1627900453165)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: mysql:mysql-connector-java:8.0.25">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.25/mysql-connector-java-8.0.25.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.25/mysql-connector-java-8.0.25-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.25/mysql-connector-java-8.0.25-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../Students/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Students/.idea/misc.xml b/../Students/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1631609965876)
++++ b/../Students/.idea/misc.xml	(date 1631609965876)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="MavenProjectsManager">
++    <option name="originalFiles">
++      <list>
++        <option value="$PROJECT_DIR$/pom.xml" />
++      </list>
++    </option>
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="openjdk-15" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_22.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_22.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_22.xml
+new file mode 100644
+--- /dev/null	(date 1627900453758)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_22.xml	(date 1627900453758)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: net.bytebuddy:byte-buddy:1.10.22">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.10.22/byte-buddy-1.10.22.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.10.22/byte-buddy-1.10.22-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.10.22/byte-buddy-1.10.22-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_14_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_14_1.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_14_1.xml
+new file mode 100644
+--- /dev/null	(date 1627900452989)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_14_1.xml	(date 1627900452989)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.apache.logging.log4j:log4j-api:2.14.1">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../Students/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Students/.idea/vcs.xml b/../Students/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1631609965925)
++++ b/../Students/.idea/vcs.xml	(date 1631609965925)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Students/.idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Students/.idea/runConfigurations.xml b/../Students/.idea/runConfigurations.xml
+new file mode 100644
+--- /dev/null	(date 1631609965910)
++++ b/../Students/.idea/runConfigurations.xml	(date 1631609965910)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RunConfigurationProducerService">
++    <option name="ignoredProducers">
++      <set>
++        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_14_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_14_1.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_14_1.xml
+new file mode 100644
+--- /dev/null	(date 1627900452974)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_14_1.xml	(date 1627900452974)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.14.1">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-to-slf4j/2.14.1/log4j-to-slf4j-2.14.1.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-to-slf4j/2.14.1/log4j-to-slf4j-2.14.1-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-to-slf4j/2.14.1/log4j-to-slf4j-2.14.1-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../Students/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Students/.idea/.gitignore b/../Students/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1631609978784)
++++ b/../Students/.idea/.gitignore	(date 1631609978784)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_50.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_50.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_50.xml
+new file mode 100644
+--- /dev/null	(date 1627900453370)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_50.xml	(date 1627900453370)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.50">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.50/tomcat-embed-core-9.0.50.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.50/tomcat-embed-core-9.0.50-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.50/tomcat-embed-core-9.0.50-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_50.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_50.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_50.xml
+new file mode 100644
+--- /dev/null	(date 1627900453360)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_50.xml	(date 1627900453360)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.50">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/9.0.50/tomcat-embed-el-9.0.50.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/9.0.50/tomcat-embed-el-9.0.50-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/9.0.50/tomcat-embed-el-9.0.50-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../Students/.idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Students/.idea/jarRepositories.xml b/../Students/.idea/jarRepositories.xml
+new file mode 100644
+--- /dev/null	(date 1631609972370)
++++ b/../Students/.idea/jarRepositories.xml	(date 1631609972370)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Central Repository" />
++      <option name="url" value="https://repo.maven.apache.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_50.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_50.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_50.xml
+new file mode 100644
+--- /dev/null	(date 1627900453349)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_50.xml	(date 1627900453349)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.50">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.50/tomcat-embed-websocket-9.0.50.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.50/tomcat-embed-websocket-9.0.50-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.50/tomcat-embed-websocket-9.0.50-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../Students/.idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Students/.idea/compiler.xml b/../Students/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1631813360718)
++++ b/../Students/.idea/compiler.xml	(date 1631813360718)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <annotationProcessing>
++      <profile name="Maven default annotation processors profile" enabled="true">
++        <sourceOutputDir name="target/generated-sources/annotations" />
++        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
++        <outputRelativeToContentRoot value="true" />
++        <module name="Students" />
++      </profile>
++    </annotationProcessing>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_7.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_7.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_7.xml
+new file mode 100644
+--- /dev/null	(date 1627900453328)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_7.xml	(date 1627900453328)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.aspectj:aspectjweaver:1.9.7">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.9.7/aspectjweaver-1.9.7.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.9.7/aspectjweaver-1.9.7-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.9.7/aspectjweaver-1.9.7-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml
+new file mode 100644
+--- /dev/null	(date 1627900453479)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml	(date 1627900453479)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.attoparser:attoparser:2.0.5.RELEASE">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/attoparser/attoparser/2.0.5.RELEASE/attoparser-2.0.5.RELEASE.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/attoparser/attoparser/2.0.5.RELEASE/attoparser-2.0.5.RELEASE-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/attoparser/attoparser/2.0.5.RELEASE/attoparser-2.0.5.RELEASE-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_dom4j_dom4j_2_1_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_dom4j_dom4j_2_1_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_dom4j_dom4j_2_1_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453820)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_dom4j_dom4j_2_1_3.xml	(date 1627900453820)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.dom4j:dom4j:2.1.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/dom4j/dom4j/2.1.3/dom4j-2.1.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/dom4j/dom4j/2.1.3/dom4j-2.1.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/dom4j/dom4j/2.1.3/dom4j-2.1.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453411)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_4.xml	(date 1627900453411)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/jaxb/jaxb-runtime/2.3.4/jaxb-runtime-2.3.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/jaxb/jaxb-runtime/2.3.4/jaxb-runtime-2.3.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/jaxb/jaxb-runtime/2.3.4/jaxb-runtime-2.3.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_4.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_4.xml
+new file mode 100644
+--- /dev/null	(date 1627900453401)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_4.xml	(date 1627900453401)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.glassfish.jaxb:txw2:2.3.4">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/jaxb/txw2/2.3.4/txw2-2.3.4.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/jaxb/txw2/2.3.4/txw2-2.3.4-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/jaxb/txw2/2.3.4/txw2-2.3.4-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_2_Final.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_2_Final.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_2_Final.xml
+new file mode 100644
+--- /dev/null	(date 1627900453858)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_2_Final.xml	(date 1627900453858)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.hibernate.common:hibernate-commons-annotations:5.1.2.Final">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/common/hibernate-commons-annotations/5.1.2.Final/hibernate-commons-annotations-5.1.2.Final.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/common/hibernate-commons-annotations/5.1.2.Final/hibernate-commons-annotations-5.1.2.Final-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/common/hibernate-commons-annotations/5.1.2.Final/hibernate-commons-annotations-5.1.2.Final-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_32_Final.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_32_Final.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_32_Final.xml
+new file mode 100644
+--- /dev/null	(date 1627900453868)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_32_Final.xml	(date 1627900453868)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.hibernate:hibernate-core:5.4.32.Final">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.4.32.Final/hibernate-core-5.4.32.Final.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.4.32.Final/hibernate-core-5.4.32.Final-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.4.32.Final/hibernate-core-5.4.32.Final-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_javassist_javassist_3_27_0_GA.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_javassist_javassist_3_27_0_GA.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_javassist_javassist_3_27_0_GA.xml
+new file mode 100644
+--- /dev/null	(date 1627900453831)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_javassist_javassist_3_27_0_GA.xml	(date 1627900453831)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.javassist:javassist:3.27.0-GA">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/javassist/javassist/3.27.0-GA/javassist-3.27.0-GA.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/javassist/javassist/3.27.0-GA/javassist-3.27.0-GA-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/javassist/javassist/3.27.0-GA/javassist-3.27.0-GA-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_jandex_2_2_3_Final.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_jandex_2_2_3_Final.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_jandex_2_2_3_Final.xml
+new file mode 100644
+--- /dev/null	(date 1627900453847)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_jandex_2_2_3_Final.xml	(date 1627900453847)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.jboss:jandex:2.2.3.Final">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/jandex/2.2.3.Final/jandex-2.2.3.Final.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/jandex/2.2.3.Final/jandex-2.2.3.Final-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/jandex/2.2.3.Final/jandex-2.2.3.Final-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_2_Final.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_2_Final.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_2_Final.xml
+new file mode 100644
+--- /dev/null	(date 1627900453392)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_2_Final.xml	(date 1627900453392)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.jboss.logging:jboss-logging:3.4.2.Final">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/logging/jboss-logging/3.4.2.Final/jboss-logging-3.4.2.Final.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/logging/jboss-logging/3.4.2.Final/jboss-logging-3.4.2.Final-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/logging/jboss-logging/3.4.2.Final/jboss-logging-3.4.2.Final-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_32.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_32.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_32.xml
+new file mode 100644
+--- /dev/null	(date 1627900453381)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_32.xml	(date 1627900453381)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.slf4j:jul-to-slf4j:1.7.32">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.32/jul-to-slf4j-1.7.32.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.32/jul-to-slf4j-1.7.32-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.32/jul-to-slf4j-1.7.32-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml
+new file mode 100644
+--- /dev/null	(date 1627900453503)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml	(date 1627900453503)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.slf4j:slf4j-api:1.7.32">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453489)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_5_3.xml	(date 1627900453489)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.5.3/spring-boot-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.5.3/spring-boot-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.5.3/spring-boot-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453457)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_5_3.xml	(date 1627900453457)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.5.3/spring-boot-autoconfigure-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.5.3/spring-boot-autoconfigure-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.5.3/spring-boot-autoconfigure-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453423)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_5_3.xml	(date 1627900453423)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/2.5.3/spring-boot-starter-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/2.5.3/spring-boot-starter-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/2.5.3/spring-boot-starter-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453559)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_5_3.xml	(date 1627900453559)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-aop:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-aop/2.5.3/spring-boot-starter-aop-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-aop/2.5.3/spring-boot-starter-aop-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-aop/2.5.3/spring-boot-starter-aop-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_5_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_5_1.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_5_1.xml
+new file mode 100644
+--- /dev/null	(date 1627900453013)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_5_1.xml	(date 1627900453013)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-data-jpa:2.5.1">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-data-jpa/2.5.1/spring-boot-starter-data-jpa-2.5.1.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-data-jpa/2.5.1/spring-boot-starter-data-jpa-2.5.1-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-data-jpa/2.5.1/spring-boot-starter-data-jpa-2.5.1-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453532)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_5_3.xml	(date 1627900453532)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-jdbc/2.5.3/spring-boot-starter-jdbc-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-jdbc/2.5.3/spring-boot-starter-jdbc-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-jdbc/2.5.3/spring-boot-starter-jdbc-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453523)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_5_3.xml	(date 1627900453523)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-json:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-json/2.5.3/spring-boot-starter-json-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-json/2.5.3/spring-boot-starter-json-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-json/2.5.3/spring-boot-starter-json-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1631958742938)
++++ b/.idea/.gitignore	(date 1631958742938)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453513)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_5_3.xml	(date 1627900453513)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-logging:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-logging/2.5.3/spring-boot-starter-logging-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-logging/2.5.3/spring-boot-starter-logging-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-logging/2.5.3/spring-boot-starter-logging-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453737)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_5_3.xml	(date 1627900453737)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-thymeleaf/2.5.3/spring-boot-starter-thymeleaf-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-thymeleaf/2.5.3/spring-boot-starter-thymeleaf-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-thymeleaf/2.5.3/spring-boot-starter-thymeleaf-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+new file mode 100644
+--- /dev/null	(date 1631958754476)
++++ b/.idea/jarRepositories.xml	(date 1631958754476)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Central Repository" />
++      <option name="url" value="https://repo.maven.apache.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453601)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_5_3.xml	(date 1627900453601)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-tomcat:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-tomcat/2.5.3/spring-boot-starter-tomcat-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-tomcat/2.5.3/spring-boot-starter-tomcat-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-tomcat/2.5.3/spring-boot-starter-tomcat-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_5_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_5_1.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_5_1.xml
+new file mode 100644
+--- /dev/null	(date 1627900453024)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_5_1.xml	(date 1627900453024)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.boot:spring-boot-starter-web:2.5.1">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-web/2.5.1/spring-boot-starter-web-2.5.1.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-web/2.5.1/spring-boot-starter-web-2.5.1-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-web/2.5.1/spring-boot-starter-web-2.5.1-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1634299852438)
++++ b/.idea/compiler.xml	(date 1634299852438)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <annotationProcessing>
++      <profile name="Maven default annotation processors profile" enabled="true">
++        <sourceOutputDir name="target/generated-sources/annotations" />
++        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
++        <outputRelativeToContentRoot value="true" />
++        <module name="goodsAndShops" />
++      </profile>
++    </annotationProcessing>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453589)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_5_3.xml	(date 1627900453589)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.data:spring-data-commons:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.5.3/spring-data-commons-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.5.3/spring-data-commons-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.5.3/spring-data-commons-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_5_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_5_3.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_5_3.xml
+new file mode 100644
+--- /dev/null	(date 1627900453579)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_5_3.xml	(date 1627900453579)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework.data:spring-data-jpa:2.5.3">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.3/spring-data-jpa-2.5.3.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.3/spring-data-jpa-2.5.3-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.3/spring-data-jpa-2.5.3-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aop_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aop_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aop_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453569)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aop_5_3_9.xml	(date 1627900453569)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-aop:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.9/spring-aop-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.9/spring-aop-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.9/spring-aop-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aspects_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aspects_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aspects_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453641)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_aspects_5_3_9.xml	(date 1627900453641)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-aspects:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aspects/5.3.9/spring-aspects-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aspects/5.3.9/spring-aspects-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aspects/5.3.9/spring-aspects-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_beans_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_beans_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_beans_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453631)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_beans_5_3_9.xml	(date 1627900453631)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-beans:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.3.9/spring-beans-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.3.9/spring-beans-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.3.9/spring-beans-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_context_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_context_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_context_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453621)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_context_5_3_9.xml	(date 1627900453621)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-context:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.9/spring-context-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.9/spring-context-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.9/spring-context-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_core_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_core_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_core_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453612)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_core_5_3_9.xml	(date 1627900453612)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-core:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.9/spring-core-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.9/spring-core-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.9/spring-core-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_expression_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_expression_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_expression_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453697)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_expression_5_3_9.xml	(date 1627900453697)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-expression:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/5.3.9/spring-expression-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/5.3.9/spring-expression-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/5.3.9/spring-expression-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453687)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_9.xml	(date 1627900453687)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-jcl:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jcl/5.3.9/spring-jcl-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jcl/5.3.9/spring-jcl-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jcl/5.3.9/spring-jcl-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453665)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_9.xml	(date 1627900453665)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-jdbc:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/5.3.9/spring-jdbc-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/5.3.9/spring-jdbc-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/5.3.9/spring-jdbc-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_orm_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_orm_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_orm_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453653)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_orm_5_3_9.xml	(date 1627900453653)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-orm:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/5.3.9/spring-orm-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/5.3.9/spring-orm-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/5.3.9/spring-orm-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_tx_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_tx_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_tx_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453779)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_tx_5_3_9.xml	(date 1627900453779)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-tx:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.3.9/spring-tx-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.3.9/spring-tx-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.3.9/spring-tx-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_web_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_web_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_web_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453767)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_web_5_3_9.xml	(date 1627900453767)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-web:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.3.9/spring-web-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.3.9/spring-web-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.3.9/spring-web-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_9.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_9.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_9.xml
+new file mode 100644
+--- /dev/null	(date 1627900453748)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_9.xml	(date 1627900453748)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.springframework:spring-webmvc:5.3.9">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.3.9/spring-webmvc-5.3.9.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.3.9/spring-webmvc-5.3.9-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.3.9/spring-webmvc-5.3.9-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../.idea/18_NoSQL.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/18_NoSQL.iml b/../.idea/18_NoSQL.iml
+new file mode 100644
+--- /dev/null	(date 1628687769693)
++++ b/../.idea/18_NoSQL.iml	(date 1628687769693)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml
+new file mode 100644
+--- /dev/null	(date 1627900453809)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml	(date 1627900453809)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/extras/thymeleaf-extras-java8time/3.0.4.RELEASE/thymeleaf-extras-java8time-3.0.4.RELEASE.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/extras/thymeleaf-extras-java8time/3.0.4.RELEASE/thymeleaf-extras-java8time-3.0.4.RELEASE-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/extras/thymeleaf-extras-java8time/3.0.4.RELEASE/thymeleaf-extras-java8time-3.0.4.RELEASE-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_12_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_12_RELEASE.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_12_RELEASE.xml
+new file mode 100644
+--- /dev/null	(date 1627900453434)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_12_RELEASE.xml	(date 1627900453434)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.thymeleaf:thymeleaf:3.0.12.RELEASE">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf/3.0.12.RELEASE/thymeleaf-3.0.12.RELEASE.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf/3.0.12.RELEASE/thymeleaf-3.0.12.RELEASE-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf/3.0.12.RELEASE/thymeleaf-3.0.12.RELEASE-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_12_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_12_RELEASE.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_12_RELEASE.xml
+new file mode 100644
+--- /dev/null	(date 1627900453797)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_12_RELEASE.xml	(date 1627900453797)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.12.RELEASE">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf-spring5/3.0.12.RELEASE/thymeleaf-spring5-3.0.12.RELEASE.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf-spring5/3.0.12.RELEASE/thymeleaf-spring5-3.0.12.RELEASE-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf-spring5/3.0.12.RELEASE/thymeleaf-spring5-3.0.12.RELEASE-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml
+new file mode 100644
+--- /dev/null	(date 1627900453544)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml	(date 1627900453544)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.unbescape:unbescape:1.1.6.RELEASE">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_yaml_snakeyaml_1_28.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_yaml_snakeyaml_1_28.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_yaml_snakeyaml_1_28.xml
+new file mode 100644
+--- /dev/null	(date 1627900453075)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/libraries/Maven__org_yaml_snakeyaml_1_28.xml	(date 1627900453075)
+@@ -0,0 +1,13 @@
++<component name="libraryTable">
++  <library name="Maven: org.yaml:snakeyaml:1.28">
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.28/snakeyaml-1.28.jar!/" />
++    </CLASSES>
++    <JAVADOC>
++      <root url="jar://$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.28/snakeyaml-1.28-javadoc.jar!/" />
++    </JAVADOC>
++    <SOURCES>
++      <root url="jar://$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.28/snakeyaml-1.28-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/misc.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1627900453154)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/misc.xml	(date 1627900453154)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="MavenProjectsManager">
++    <option name="originalFiles">
++      <list>
++        <option value="$PROJECT_DIR$/pom.xml" />
++      </list>
++    </option>
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="openjdk-15" project-jdk-type="JavaSDK" />
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/modules.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1627900453133)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/modules.xml	(date 1627900453133)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/ToDoList.iml" filepath="$PROJECT_DIR$/.idea/ToDoList.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/uiDesigner.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/uiDesigner.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/uiDesigner.xml
+new file mode 100644
+--- /dev/null	(date 1627900453256)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/uiDesigner.xml	(date 1627900453256)
+@@ -0,0 +1,124 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Palette2">
++    <group name="Swing">
++      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
++      </item>
++      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.png" removable="false" auto-create-binding="false" can-attach-label="true">
++        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
++        <initial-values>
++          <property name="text" value="Button" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="RadioButton" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="CheckBox" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="Label" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
++          <preferred-size width="-1" height="20" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
++      </item>
++    </group>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/.idea/vcs.xml b/../../12_SpringBootWebDevelopment/ToDoList/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1627900453038)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/.idea/vcs.xml	(date 1627900453038)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.datasource.url=jdbc:mysql://localhost:3306/todolist\r\nspring.datasource.username=root\r\nspring.datasource.password=cuafbu5k3a\r\nspring.jpa.hibernate.ddl-auto=create\r\nspring.jpa.properties.hibernate.globally_quoted_identifiers=true
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/application.properties b/../../12_SpringBootWebDevelopment/ToDoList/application.properties
+--- a/../../12_SpringBootWebDevelopment/ToDoList/application.properties	(revision 7656451eb0c90ee2197186bc351fa2fe7d5ae75a)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/application.properties	(date 1627900453192)
+@@ -1,5 +1,8 @@
+ spring.datasource.url=jdbc:mysql://localhost:3306/todolist
+ spring.datasource.username=root
+ spring.datasource.password=cuafbu5k3a
+-spring.jpa.hibernate.ddl-auto=create
+-spring.jpa.properties.hibernate.globally_quoted_identifiers=true
+\ No newline at end of file
++spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
++spring.jpa.database-platform = org.hibernate.dialect.MySQL5Dialect
++spring.jpa.generate-ddl=true
++spring.jpa.hibernate.ddl-auto=none
++#spring.jpa.properties.hibernate.globally_quoted_identifiers=true
+\ No newline at end of file
+Index: ../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main;\r\n\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\n\r\n@SpringBootApplication\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        SpringApplication.run(Main.class, args);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/Main.java b/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/Main.java
+--- a/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/Main.java	(revision 7656451eb0c90ee2197186bc351fa2fe7d5ae75a)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/Main.java	(date 1627900452951)
+@@ -2,6 +2,7 @@
+ 
+ import org.springframework.boot.SpringApplication;
+ import org.springframework.boot.autoconfigure.SpringBootApplication;
++import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+ 
+ @SpringBootApplication
+ public class Main {
+Index: ../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/controllers/DefaultController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.controllers;\r\n\r\nimport main.model.Deal;\r\nimport main.model.DealRepository;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n@Controller\r\npublic class DefaultController {\r\n    @Autowired\r\n    private DealRepository dealRepository;\r\n    @RequestMapping(\"/\")\r\n        public String listOfAllCases(Model model){\r\n        Iterable<Deal> dealIterable = dealRepository.findAll();\r\n        List<String> dealList = new ArrayList<>();\r\n        for (Deal deal:dealIterable) {\r\n            StringBuilder sb = new StringBuilder();\r\n            sb.append(deal.getId()).append(\" \").append(deal.getName());\r\n            dealList.add(sb.toString());\r\n        }\r\n        if(dealList.size()==0){\r\n            model.addAttribute(\"deals\",\"Нет дел в списке\");\r\n        }else{\r\n        model.addAttribute(\"deals\", dealList);}\r\n        return \"index\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/controllers/DefaultController.java b/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/controllers/DefaultController.java
+--- a/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/controllers/DefaultController.java	(revision 7656451eb0c90ee2197186bc351fa2fe7d5ae75a)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/src/main/java/main/controllers/DefaultController.java	(date 1627900452934)
+@@ -6,7 +6,7 @@
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.RequestMapping;
+-import org.springframework.web.bind.annotation.RestController;
++
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+Index: ../../12_SpringBootWebDevelopment/ToDoList/src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/../../12_SpringBootWebDevelopment/ToDoList/src/main/resources/application.properties b/../../12_SpringBootWebDevelopment/ToDoList/src/main/resources/application.properties
+new file mode 100644
+--- /dev/null	(date 1627900453097)
++++ b/../../12_SpringBootWebDevelopment/ToDoList/src/main/resources/application.properties	(date 1627900453097)
+@@ -0,0 +1,7 @@
++spring.datasource.url=jdbc:mysql://localhost:3306/todolist
++spring.datasource.username=root
++spring.datasource.password=cuafbu5k3a
++spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
++spring.jpa.database-platform = org.hibernate.dialect.MySQL5Dialect
++spring.jpa.generate-ddl=true
++spring.jpa.hibernate.ddl-auto=none
