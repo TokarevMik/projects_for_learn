@@ -61,17 +61,24 @@ public class Node {
             }
             for (Element link : links) {
                 String linkHref = link.attr("href");
-                System.out.println(linkHref);//проверка
-                Pattern pattern = Pattern.compile(domain + "/[\\w,\\D]+/$");
+                Pattern pattern = Pattern.compile(domain + "/[\\w,\\D]+(.html)?/$");
                 Matcher matcher = pattern.matcher(linkHref);
 
-                Pattern pattern2 = Pattern.compile("^/[\\w,-,_]+/$");
+
+//                Pattern pattern2 = Pattern.compile("^(/[\\w,-,_])+(.html)?/$");
+                Pattern pattern2 = Pattern.compile("^(/[\\w,-,_]+)+(.html)?$");
                 Matcher matcher2 = pattern2.matcher(linkHref);
+
+                Pattern pattern3 = Pattern.compile("^/[\\w,-,_]+(.html)?/$");
+                Matcher matcher3 = pattern3.matcher(linkHref);
                 if (matcher.matches()) {
-                    System.out.println(linkHref + " +");
                     nodes.add(new Node(linkHref));   // добавление дочерней ссылки в список , но уровнем не ниже 1 от родительской
                 }
                 if (matcher2.matches()) {
+                    linkHref = domain.concat(linkHref);
+                    nodes.add(new Node(linkHref)); // ссылка типа "/****/"
+                }
+                if (matcher3.matches()) {
                     linkHref = domain.concat(linkHref);
                     nodes.add(new Node(linkHref)); // ссылка типа "/****/"
                 }
@@ -83,7 +90,6 @@ public class Node {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("3 " + url + " " + path);
     }
 
     public static String getTitle(String url) {

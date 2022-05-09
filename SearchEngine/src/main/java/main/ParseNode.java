@@ -2,6 +2,7 @@ package main;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLOutput;
 import java.sql.SQLSyntaxErrorException;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -30,12 +31,13 @@ public class ParseNode extends RecursiveAction {
 
         } catch (SQLSyntaxErrorException e) {
             e.printStackTrace();
-        } catch (SQLIntegrityConstraintViolationException ex){
-            System.out.println("SQL **" + " Path" + node.getPath());
-            System.out.println("URL " + node.getUrl());
         }
         catch (SQLException ex) {
             ex.printStackTrace();
+        }
+        catch (Exception e){
+            System.out.println("url - " + url);
+            e.printStackTrace();
         }
         Set<ParseNode> taskList = new CopyOnWriteArraySet<>();
 
